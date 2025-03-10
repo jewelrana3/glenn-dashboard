@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: white !important;
+}
+
+.border-bottom {
+    border: 0.6px solid black;
+}
+
+.ant-checkbox-wrapper .ant-checkbox-inner,
+.ant-checkbox-wrapper:hover .ant-checkbox-inner {
+    background-color: white !important; /* Force white background */
+    border-color: #757575 !important; /* Force gray border */
+}
+
+/* Specific styles for the checked state */
+.ant-checkbox-wrapper-checked .ant-checkbox-inner {
+    background-color: white !important; /* Force white background */
+    border-color: #757575 !important; /* Force gray border */
+}
+
+/* Style the checkmark itself */
+.ant-checkbox-checked .ant-checkbox-inner::after {
+    content: '' !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 8px;
+    transform: translate(-50%, -50%) rotate(45deg);
+    border: solid gray;
+    border-width: 0 2px 2px 0;
+    background-color: transparent !important;
+}
+
+.ant-checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ant-layout-header {
+    background: white;
+    padding: 0 30px;
+}
+
+.ant-table-thead {
+    height: 60px !important;
+}
+
+/* title user management */
+.title {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.ant-menu-light.ant-menu-root.ant-menu-inline {
+    border: none;
+}
+
+.ant-select .ant-select-outlined {
+    border: none !important;
+}
