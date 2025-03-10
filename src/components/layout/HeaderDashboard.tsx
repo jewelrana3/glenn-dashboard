@@ -7,14 +7,14 @@ const HeaderDashboard = () => {
     return (
         <Header className="w-full">
             <div className="flex items-center justify-end w-full -ml-5">
-                <div className="flex items-center">
+                <div className="flex items-center gap-2">
                     <div>
                         {/*notification icons */}
                         <Link to={'/notification'}>
-                            <div className="size-10 rounded-full flex items-center justify-center ">
-                                <button className="py-4 px-1 relative border-2 border-transparent rounded-full focus:outline-none transition duration-150 ease-in-out">
-                                    <span className="absolute inset-0 -top-4  -mr-6 ">
-                                        <div className="inline-flex items-center px-1.5 py-0.5 border-2 border-white rounded-full text-xs font-semibold leading-4  bg-[#FC6057]">
+                            <div className="size-10 flex items-center  justify-center border border-[#333333] h-11 w-11 rounded-full">
+                                <button className=" py-4 px-1 relative  rounded-full focus:outline-none transition duration-150 ease-in-out">
+                                    <span className="absolute inset-0 -top-3  -mr-4 ">
+                                        <div className="inline-flex items-center px-1 py-0. border-2 border-white rounded-full text-xs font-semibold leading-4  bg-[#FC6057]">
                                             6
                                         </div>
                                     </span>
@@ -56,7 +56,7 @@ const HeaderDashboard = () => {
                                     fontWeight: '600',
                                 }}
                             >
-                                John Doe
+                                Samuel Jacob
                             </h2>
                         </Link>
                     </div>
