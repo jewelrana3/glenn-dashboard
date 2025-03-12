@@ -1,15 +1,54 @@
-import { ConfigProvider, Form, FormProps, Input } from 'antd';
-import { FieldNamesType } from 'antd/es/cascader';
+import { ConfigProvider, Form, Input } from 'antd';
 import { useNavigate } from 'react-router';
-import forgot from '../../../public/auth/forgot.svg';
+import forgots from '../../../public/auth/forgot.svg';
 import Button from '../../components/shared/Button';
-import { Link } from 'react-router-dom';
+import { useForgetPasswordMutation } from '../../redux/apiSlices/authSlice';
+import Swal from 'sweetalert2';
 
 const ForgetPassword = () => {
+    const [forgetPassword] = useForgetPasswordMutation();
     const navigate = useNavigate();
-    const onFinish: FormProps<FieldNamesType>['onFinish'] = (values) => {
-        console.log('Received values of form: ', values);
-        navigate('/verify-otp');
+    const onFinish = async (values: { email: string }) => {
+        try {
+            const res = await forgetPassword(values);
+
+            if (res?.data?.success) {
+                Swal.fire({
+                    text: res?.data?.message,
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500,
+                }).then(() => {
+                    const value = {
+                        email: values?.email,
+                    };
+
+                    if (values?.email) {
+                        localStorage.setItem('email', JSON.stringify(value));
+                    }
+
+                    navigate('/verify-otp');
+                });
+            } else {
+                Swal.fire({
+                    title: 'Oops',
+                    //@ts-ignore
+                    text: res?.error?.data?.message || 'An error occurred, please try again.',
+                    icon: 'error',
+                    timer: 1500,
+                    showConfirmButton: false,
+                });
+            }
+        } catch (err) {
+            console.error('Error occurred during forget password:', err);
+            Swal.fire({
+                title: 'Error',
+                text: 'Something went wrong. Please try again later.',
+                icon: 'error',
+                timer: 1500,
+                showConfirmButton: false,
+            });
+        }
     };
 
     return (
@@ -39,7 +78,7 @@ const ForgetPassword = () => {
             flex items-center justify-center h-screen"
             >
                 <div className=" px-5">
-                    <img src={forgot} width={460} height={460} alt="forgot" />
+                    <img src={forgots} width={460} height={460} alt="forgot" />
                 </div>
                 <span className="border-r-2 border-black h-[600px]"></span>
                 <div className="flex items-center justify-center px-6">
@@ -67,11 +106,9 @@ const ForgetPassword = () => {
                             </Form.Item>
 
                             <Form.Item>
-                                <Link to="/verify-otp">
-                                    <Button htmlType="submit" className="w-full bg-authBg text-[#000000]">
-                                        Get OTP
-                                    </Button>
-                                </Link>
+                                <Button htmlType="submit" className="w-full bg-authBg text-[#000000]">
+                                    Get OTP
+                                </Button>
                             </Form.Item>
                         </Form>
                     </div>

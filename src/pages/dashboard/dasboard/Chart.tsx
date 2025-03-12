@@ -37,8 +37,7 @@ export default function Chart() {
                         },
                     }}
                 >
-                    <Select defaultValue="2024" className="w-32 h-[40px] !border-none">
-                        <Option value="2024">2024</Option>
+                    <Select defaultValue="2025" className="w-32 h-[40px] !border-none">
                         <Option value="2025">2025</Option>
                         <Option value="2026">2026</Option>
                         <Option value="2027">2027</Option>

@@ -1,5 +1,6 @@
 import MainLayout from './components/layout/MainLayout';
 import { ConfigProvider } from 'antd';
+
 function App() {
     return (
         <>
@@ -16,7 +17,7 @@ function App() {
                             colorText: '',
                             headerSplitColor: '',
                             padding: 5,
-                            fontSize: 19,
+
                             fontFamily: 'Poppins',
                         },
                         Select: {

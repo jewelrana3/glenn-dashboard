@@ -1,4 +1,3 @@
-import { Image } from 'antd';
 import card from '../../../../public/dashboard/card.svg';
 import user from '../../../../public/dashboard/user.svg';
 
@@ -29,7 +28,7 @@ const EventStates = () => {
                     <div key={index} className="bg-bgHeader rounded-md p-4  w-full shadow-sm ">
                         <div className="flex  items-center gap-3 px-4">
                             <div className={` w-[54px] h-[54px] rounded-full flex items-center justify-center `}>
-                                <Image src={item.image} width={80} height={80} alt={item.alt} />
+                                <img src={item.image} width={80} height={80} alt={item.alt} />
                             </div>
                             <div className=" flex flex-col gap-1 ">
                                 <p className="text-2xl font-medium text-textGray">{item.name}</p>

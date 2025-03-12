@@ -1,14 +1,41 @@
-import { ConfigProvider, Form, FormProps, Input } from 'antd';
-import { FieldNamesType } from 'antd/es/cascader';
+import { ConfigProvider, Form, Input } from 'antd';
+
 import { useNavigate } from 'react-router';
 import newPass from '../../../public/auth/new-pass.svg';
 import Button from '../../components/shared/Button';
+import { useResetPasswodMutation } from '../../redux/apiSlices/authSlice';
+import { useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 const NewPassword = () => {
     const navigate = useNavigate();
-    const onFinish: FormProps<FieldNamesType>['onFinish'] = (values) => {
-        console.log('Received values of form: ', values);
-        navigate('/');
+    const [resetPassword, { isSuccess, error, data, isLoading }] = useResetPasswodMutation();
+
+    useEffect(() => {
+        if (isSuccess) {
+            if (data) {
+                Swal.fire({
+                    text: data?.message,
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500,
+                }).then(() => {
+                    navigate('/login');
+                    window.location.reload();
+                });
+            } else {
+                Swal.fire({
+                    //@ts-ignore
+                    text: error?.data?.message,
+                    icon: 'error',
+                });
+            }
+        }
+    }, [isSuccess, error, data, isLoading, navigate]);
+
+    const onFinish = async (values: { newPassword: string; confirmPassword: string }) => {
+        console.log(values);
+        await resetPassword(values);
     };
 
     return (
@@ -61,7 +88,7 @@ const NewPassword = () => {
                                         New Password
                                     </label>
                                 }
-                                name="new_password"
+                                name="newPassword"
                                 rules={[{ required: true, message: 'Please input new password!' }]}
                             >
                                 <Input.Password placeholder="KK!@#$15856" className=" h-12 px-6" />
@@ -72,7 +99,7 @@ const NewPassword = () => {
                                         Confirm Password
                                     </label>
                                 }
-                                name="confirm_password"
+                                name="confirmPassword"
                                 rules={[{ required: true, message: 'Please input confirm password!' }]}
                             >
                                 <Input.Password placeholder="KK!@#$15856" className="h-12 px-6" />
@@ -80,7 +107,7 @@ const NewPassword = () => {
 
                             <Form.Item>
                                 <Button className="bg-bgYellow w-full rounded-md text-[#181818] mt-5" htmlType="submit">
-                                    Confirm
+                                    {isLoading ? 'Updating' : 'Update Password'}
                                 </Button>
                             </Form.Item>
                         </Form>

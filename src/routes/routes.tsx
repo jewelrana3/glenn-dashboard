@@ -21,6 +21,7 @@ import Category from '../pages/dashboard/category/Category';
 import AboutUs from '../pages/dashboard/AboutUs';
 import TermsCondition from '../pages/dashboard/TermsCondition';
 import Visitor from '../pages/dashboard/users/Users';
+import Faq from '../pages/dashboard/faq/Faq';
 
 const router = createBrowserRouter([
     {
@@ -43,6 +44,7 @@ const router = createBrowserRouter([
             { path: '/notification', element: <Notification /> },
             { path: '/profile', element: <Profile /> },
             { path: '/edit-profile', element: <EditProfile /> },
+            { path: '/faq', element: <Faq /> },
             { path: '/change-password', element: <ChangePassword /> },
         ],
     },

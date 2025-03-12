@@ -1,13 +1,49 @@
-import { Checkbox, ConfigProvider, Form, FormProps, Input } from 'antd';
-import { FieldNamesType } from 'antd/es/cascader';
+import { Checkbox, ConfigProvider, Form, Input } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/shared/Button';
+import { useLoginMutation } from '../../redux/apiSlices/authSlice';
+import { useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 const Login = () => {
+    const [login, { isError, isSuccess, isLoading, data, error }] = useLoginMutation();
+
     const navigate = useNavigate();
-    const onFinish: FormProps<FieldNamesType>['onFinish'] = (values) => {
+
+    useEffect(() => {
+        if (isSuccess) {
+            if (data) {
+                Swal.fire({
+                    text: data?.message,
+                    icon: 'success',
+                    timer: 1500,
+                    showConfirmButton: false,
+                }).then(() => {
+                    if (data) {
+                        localStorage.setItem('accressToken', data?.data?.accessToken);
+                        localStorage.setItem('refreshToken', data?.data?.refreshToken);
+                        navigate('/');
+                    }
+                });
+            }
+        }
+        if (isError) {
+            Swal.fire({
+                title: 'Failed to Login',
+                //@ts-ignore
+                text: error?.data?.message,
+                icon: 'error',
+            });
+        }
+    }, [isSuccess, isError, error, data, navigate]);
+
+    const onFinish = async (values: { email: string; password: string }) => {
         console.log('Received values of form: ', values);
-        navigate('/');
+        const data = {
+            email: values.email,
+            password: values.password,
+        };
+        await login(data).unwrap();
     };
 
     return (
@@ -91,16 +127,10 @@ const Login = () => {
 
                                 // onClick={() => navigate('/')}
                             >
-                                Sign In
+                                {isLoading ? 'Loading...' : ' Sign In'}
                             </Button>
                         </Form.Item>
                     </Form>
-                    {/* <div className="flex justify-end ">
-                        <Link to="/sign-up">
-                            {' '}
-                            <p className="text-[#8DB501] font-bold underline cursor-pointer">Sign Up</p>
-                        </Link>
-                    </div> */}
                 </div>
             </div>
         </ConfigProvider>

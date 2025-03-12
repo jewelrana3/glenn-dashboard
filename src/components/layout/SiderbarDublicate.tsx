@@ -13,11 +13,11 @@ import './SiderbarDublicate.css';
 import { MdKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md';
 
 const menuItems = [
-    { label: 'Dashboard', path: '/', icon: <img src={dashboard} width={24} height={24} alt="dashboard" /> },
+    { label: 'Dashboard', path: '/', icon: <img src={dashboard} width={22} height={22} alt="dashboard" /> },
     { label: 'Visitor', path: '/visitor', icon: <img src={visitor} alt="visitor" width={28} height={28} /> },
-    // { label: 'Earing', path: '/earing', icon: <img src={earings} alt="earing" width={24} height={24} /> },
-    // { label: 'Agency', path: '/agency', icon: <img src={agency} alt="agency" width={24} height={24} /> },
-    { label: 'Category', path: '/category', icon: <img src={category} alt="category" width={24} height={24} /> },
+    // { label: 'Earing', path: '/earing', icon: <img src={earings} alt="earing" width={22} height={22} /> },
+    // { label: 'Agency', path: '/agency', icon: <img src={agency} alt="agency" width={22} height={22} /> },
+    { label: 'Category', path: '/category', icon: <img src={category} alt="category" width={22} height={22} /> },
 ];
 
 const settings = [
@@ -26,19 +26,24 @@ const settings = [
         icon: <IoSettingsOutline size={24} />,
         path: '/profile',
         children: [
-            { label: 'Profile', path: '/profile', icon: <img src={about} width={24} height={24} alt="profile" /> },
+            { label: 'Profile', path: '/profile', icon: <img src={about} width={22} height={22} alt="profile" /> },
             { label: 'Change Password', path: '/change-password', icon: <CiLock size={24} /> },
-            { label: 'About Us', path: '/about-us', icon: <img src={about} width={24} height={24} alt="about" /> },
+            { label: 'About Us', path: '/about-us', icon: <img src={about} width={22} height={22} alt="about" /> },
 
             {
                 label: 'Privacy Policy',
                 path: '/policy',
-                icon: <img src={privacy} width={24} height={24} alt="policy" />,
+                icon: <img src={privacy} width={22} height={22} alt="policy" />,
             },
             {
                 label: 'Terms And Condition',
                 path: '/terms-condition',
-                icon: <img src={terms} width={24} height={24} alt="terms" />,
+                icon: <img src={terms} width={22} height={22} alt="terms" />,
+            },
+            {
+                label: 'FAQ',
+                path: '/faq',
+                icon: <img src={terms} width={22} height={22} alt="faq" />,
             },
         ],
     },
@@ -65,7 +70,7 @@ export default function SiderbarDublicate() {
                     <h1>logo</h1>
                 </div>
             </Link>
-            <div className="navigation">
+            <div className="navigation mt-10">
                 <ul className="menu ml-6">
                     {menuItems.map((item) => (
                         <li key={item.path} className={`menu-item ${getMenuItemClass(item.path)}`}>
@@ -75,7 +80,7 @@ export default function SiderbarDublicate() {
                                 <div className="flex justify-between items-center">
                                     <div className="flex items-center">
                                         <span className="icon ">{item.icon}</span>
-                                        <span className=" text-[#333333] hidden md:block">{item.label}</span>
+                                        <span className=" text-[#333333] hidden md:block text-base">{item.label}</span>
                                     </div>
                                 </div>
                             </Link>
