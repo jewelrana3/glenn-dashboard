@@ -6,14 +6,10 @@ import Notification from '../pages/dashboard/Notification';
 import ForgetPassword from '../pages/authentication/ForgetPassword';
 import VerifyOtp from '../pages/authentication/VerifyOtp';
 import NewPassword from '../pages/authentication/NewPassword';
-import Earing from '../pages/dashboard/earing/Earing';
 import Dashboard from '../pages/dashboard/dasboard/Dashboard';
 import PrivacyPolicy from '../pages/dashboard/PrivacyPolicy';
 import EditProfile from '../pages/dashboard/profile/EditProfile';
 import ChangePassword from '../pages/dashboard/profile/ChangePassword';
-import Donate from '../pages/dashboard/donate/Donate';
-import TopCommunities from '../pages/dashboard/topCommunities/TopCommunities';
-import Events from '../pages/dashboard/events/Events';
 import Agency from '../pages/dashboard/agency/Agency';
 import Profile from '../pages/dashboard/profile/Profle';
 import SignUp from '../pages/authentication/SignUp';
@@ -31,12 +27,8 @@ const router = createBrowserRouter([
         children: [
             { path: '/', element: <Dashboard /> },
             { path: '/visitor', element: <Visitor /> },
-            { path: '/donate', element: <Donate /> },
-            { path: '/events', element: <Events /> },
-            { path: '/earing', element: <Earing /> },
             { path: '/agency', element: <Agency /> },
             { path: '/category', element: <Category /> },
-            { path: '/top-communities', element: <TopCommunities /> },
             { path: '/about-us', element: <AboutUs /> },
             { path: '/terms-condition', element: <TermsCondition /> },
             { path: '/policy', element: <PrivacyPolicy /> },

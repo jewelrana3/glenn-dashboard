@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
+import { useCreateCategoryMutation } from '../redux/apiSlices/categorySlice';
 
 interface AddCategoryModalProps {
     isOpen: boolean;
@@ -7,6 +8,7 @@ interface AddCategoryModalProps {
 }
 
 const AddCategoryModal = ({ isOpen, onClose }: AddCategoryModalProps) => {
+    const [createCategory] = useCreateCategoryMutation();
     const [formData, setFormData] = useState({
         fuel: '',
         carType: '',
@@ -25,9 +27,9 @@ const AddCategoryModal = ({ isOpen, onClose }: AddCategoryModalProps) => {
         });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(formData);
+        await createCategory(formData);
     };
 
     return (

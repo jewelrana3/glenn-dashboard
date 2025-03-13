@@ -5,11 +5,42 @@ import JoditEditor from 'jodit-react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/shared/Button';
 
+import Swal from 'sweetalert2';
+import { useCreateAboutMutation, useGetAboutQuery } from '../../redux/apiSlices/AboutSlice';
+
 export default function AboutUs() {
     const editor = useRef(null);
     const navigate = useNavigate();
+    const { data, refetch } = useGetAboutQuery(undefined);
+    const [createAbout] = useCreateAboutMutation();
+    console.log(data);
 
     const [content, setContent] = useState('');
+
+    const handleSubmit = async () => {
+        const data = { content: content };
+
+        const res = await createAbout(data);
+        if (res?.data?.success) {
+            Swal.fire({
+                text: res?.data?.message,
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500,
+            }).then(() => {
+                refetch();
+            });
+        } else {
+            Swal.fire({
+                title: 'Opps',
+                // @ts-ignore
+                text: res?.error?.data?.message,
+                icon: 'error',
+                timer: 1500,
+                showConfirmButton: false,
+            });
+        }
+    };
 
     return (
         <div>
@@ -21,9 +52,6 @@ export default function AboutUs() {
             </div>
 
             <div className="">
-                {/* <div className="flex items-center justify-center mt-28">
-          <img src={terms} />
-        </div> */}
                 <div className="mt-5">
                     <JoditEditor
                         ref={editor}
@@ -32,7 +60,9 @@ export default function AboutUs() {
                         onBlur={(newContent) => setContent(newContent)}
                     />
                 </div>
-                <Button className="mt-5">Save</Button>
+                <Button className="mt-5" onClick={handleSubmit}>
+                    Save
+                </Button>
             </div>
         </div>
     );

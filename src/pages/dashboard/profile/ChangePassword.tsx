@@ -1,15 +1,31 @@
 import { ConfigProvider, Form, Input } from 'antd';
 import Button from '../../../components/shared/Button';
+import { useChangePasswordMutation } from '../../../redux/apiSlices/currentPasswordSlice';
+import Swal from 'sweetalert2';
 
 export default function ChangePassword() {
-    //   const navigate = useNavigate();
-    //   const [changePassword] = useChangePasswordMutation();
+    const [changePassword] = useChangePasswordMutation();
 
-    const [form] = Form.useForm();
-
-    const onFinish = (values: string) => {
+    const onFinish = async (values: any) => {
         console.log(values);
-        form.resetFields();
+        try {
+            const res = await changePassword(values).unwrap();
+
+            Swal.fire({
+                text: res?.message,
+                icon: 'success',
+                timer: 1500,
+                showConfirmButton: false,
+            }).then(() => {
+                window.location.reload();
+            });
+        } catch (error) {
+            Swal.fire({
+                //@ts-ignore
+                text: error?.data?.message,
+                icon: 'error',
+            });
+        }
     };
 
     return (
@@ -21,7 +37,7 @@ export default function ChangePassword() {
                             components: {},
                         }}
                     >
-                        <Form form={form} onFinish={onFinish} layout="vertical">
+                        <Form onFinish={onFinish} layout="vertical">
                             <span className=" text-[20px] font-semibold ">Current password</span>
                             <Form.Item
                                 name="currentPassword"
@@ -65,7 +81,7 @@ export default function ChangePassword() {
 
                             <span className=" text-[20px] font-semibold ">Re-enter new Password</span>
                             <Form.Item
-                                name="reEnterPassword"
+                                name="confirmPassword"
                                 className="text-black"
                                 rules={[
                                     {

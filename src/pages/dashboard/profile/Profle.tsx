@@ -1,15 +1,37 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { Form, Input, Avatar, ConfigProvider } from 'antd';
 import { MdOutlineArrowBackIosNew, MdOutlineModeEdit } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
 
 import CustomButton from '../../../components/shared/Button';
+import { useProfileQuery } from '../../../redux/apiSlices/profileSlice';
 
 export default function Profile() {
     const navigate = useNavigate();
-    const [imageUrl] = useState<string>('https://i.ibb.co.com/ZzZ1DXff/Frame-2147226688.png');
-
     const [form] = Form.useForm();
+
+    const { data, isLoading, isError } = useProfileQuery(undefined);
+    console.log(data);
+
+    useEffect(() => {
+        if (data) {
+            form.setFieldsValue({
+                name: data?.data?.name,
+                email: data?.data?.email,
+                Password: data?.password,
+            });
+        }
+    }, [data, form]);
+
+    const imageUrl = data?.profile || 'https://i.ibb.co.com/ZzZ1DXff/Frame-2147226688.png'; // Dynamic avatar URL if available
+
+    if (isLoading) {
+        return <div>Loading...</div>; // Handle loading state
+    }
+
+    if (isError) {
+        return <div>Error loading profile.</div>; // Handle error state
+    }
 
     return (
         <div className="flex justify-center items-center">
@@ -58,10 +80,10 @@ export default function Profile() {
                             <div>
                                 <span className=" text-[20px] font-semibold ">Full Name</span>
                                 <div className="mt-3 ">
-                                    <Form.Item name="fullname" rules={[{ required: true }]}>
+                                    <Form.Item name="name" rules={[{ required: true }]}>
                                         <Input
                                             className="h-14 bg-inputBg hover:bg-inputBg focus:bg-inputBg rounded-xl border-none"
-                                            placeholder="enter your email"
+                                            placeholder="enter your name"
                                         />
                                     </Form.Item>
                                 </div>
@@ -74,18 +96,6 @@ export default function Profile() {
                                         <Input
                                             className="h-14 bg-inputBg hover:bg-inputBg focus:bg-inputBg rounded-xl border-none"
                                             placeholder="enter your gmail"
-                                        />
-                                    </Form.Item>
-                                </div>
-                            </div>
-
-                            <div>
-                                <span className=" text-[20px] font-semibold ">Password</span>
-                                <div className="mt-3">
-                                    <Form.Item name="password" rules={[{ required: true }]}>
-                                        <Input.Password
-                                            className="h-14 bg-inputBg hover:bg-inputBg focus:bg-inputBg rounded-xl border-none"
-                                            placeholder="Password"
                                         />
                                     </Form.Item>
                                 </div>

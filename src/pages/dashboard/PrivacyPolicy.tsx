@@ -4,16 +4,42 @@ import { useRef, useState } from 'react';
 import JoditEditor from 'jodit-react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/shared/Button';
+import { useCreatePolicyMutation, useGetPrivacyPolicyQuery } from '../../redux/apiSlices/PrivacyPolicySlice';
+import Swal from 'sweetalert2';
 
 export default function PrivacyPolicy() {
     const editor = useRef(null);
     const navigate = useNavigate();
+    const { data, refetch } = useGetPrivacyPolicyQuery(undefined);
+    const [createPolicy] = useCreatePolicyMutation();
+
+    console.log(data);
 
     const [content, setContent] = useState('');
+    const handleSubmit = async () => {
+        const data = { content: content };
 
-    // const handleOnSave = (value: string) => {
-    //     console.log(value);
-    // };
+        const res = await createPolicy(data);
+        if (res?.data?.success) {
+            Swal.fire({
+                text: res?.data?.message,
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500,
+            }).then(() => {
+                refetch();
+            });
+        } else {
+            Swal.fire({
+                title: 'Oops',
+                //@ts-ignore
+                text: res?.error?.data?.message,
+                icon: 'error',
+                timer: 1500,
+                showConfirmButton: false,
+            });
+        }
+    };
     return (
         <div>
             <div className="flex items-center gap-4 font-semibold text-[20px]" onClick={() => navigate(-1)}>
@@ -24,9 +50,6 @@ export default function PrivacyPolicy() {
             </div>
 
             <div className="">
-                {/* <div className="flex items-center justify-center mt-28">
-          <img src={terms} />
-        </div> */}
                 <div className="mt-5">
                     <JoditEditor
                         ref={editor}
@@ -35,7 +58,9 @@ export default function PrivacyPolicy() {
                         onBlur={(newContent) => setContent(newContent)}
                     />
                 </div>
-                <Button className="mt-5">Save</Button>
+                <Button className="mt-5" htmlType="submit" onClick={handleSubmit}>
+                    Save
+                </Button>
             </div>
         </div>
     );

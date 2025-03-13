@@ -2,91 +2,74 @@ import { useState } from 'react';
 import CategoryModal from '../../../modal/CategoryModal';
 import Button from '../../../components/shared/Button';
 import AddCategoryModal from '../../../modal/AddCategoryModal';
-import user from '../../../../public/dashboard/user.svg';
-import man from '../../../../public/category/men.svg';
-import calender from '../../../../public/category/calender.svg';
+import { Table, Space } from 'antd';
+import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import image1 from '../../../../public/category/image1.svg';
 import image2 from '../../../../public/category/image2.png';
-import image3 from '../../../../public/category/image3.svg';
+import { useGetAllCategoryQuery } from '../../../redux/apiSlices/categorySlice';
 
-const data = [
+const dataSource = [
     {
-        title: 'Equestrian Family House',
-        revenue: '38,440',
+        key: '1',
+        image: image1, // Replace with actual image URL
+        title: 'Finding Love in the Digital A...',
+        date: '2024-10-01',
         city: 'Singapore',
-        amount: '678',
-        men: 'Sole proprietorship',
-        year: '1998',
-        user: user,
-        man: man,
-        calender: calender,
-        image: image1,
     },
     {
-        title: 'Equestrian Family House',
-        revenue: '38,440',
+        key: '2',
+        image: image2, // Replace with actual image URL
+        title: 'Navigating First Dates with ...',
+        date: '2024-09-15',
         city: 'Singapore',
-        amount: '678',
-        men: 'Sole proprietorship',
-        year: '1998',
-        user: user,
-        man: man,
-        calender: calender,
-        image: image2,
+    },
+];
+
+const columns = [
+    {
+        title: 'S.No',
+        dataIndex: 'key',
+        key: 'key',
     },
     {
-        title: 'Equestrian Family House',
-        revenue: '38,440',
-        city: 'Singapore',
-        amount: '678',
-        men: 'Sole proprietorship',
-        year: '1998',
-        user: user,
-        man: man,
-        calender: calender,
-        image: image3,
+        title: <span className="ml-48">News Title</span>,
+        dataIndex: 'title',
+        key: 'title',
+        render: (text: string, record: { image: string }) => (
+            <Space className="ml-20">
+                <img width={150} src={record.image} className="rounded-3xl" />
+                <span>{text}</span>
+            </Space>
+        ),
     },
     {
-        title: 'Equestrian Family House',
-        revenue: '38,440',
-        city: 'Singapore',
-        amount: '678',
-        men: 'Sole proprietorship',
-        year: '1998',
-        user: user,
-        man: man,
-        calender: calender,
-        image: image2,
+        title: 'City',
+        dataIndex: 'city',
+        key: 'city',
     },
     {
-        title: 'Equestrian Family House',
-        revenue: '38,440',
-        city: 'Singapore',
-        amount: '678',
-        men: 'Sole proprietorship',
-        year: '1998',
-        user: user,
-        man: man,
-        calender: calender,
-        image: image3,
+        title: 'Publication Date',
+        dataIndex: 'date',
+        key: 'date',
     },
     {
-        title: 'Equestrian Family House',
-        revenue: '38,440',
-        city: 'Singapore',
-        amount: '678',
-        men: 'Sole proprietorship',
-        year: '1998',
-        user: user,
-        man: man,
-        calender: calender,
-        image: image1,
+        title: 'Action',
+        key: 'action',
+        render: () => (
+            <Space size="large">
+                <EyeOutlined className="text-xl" style={{ color: '#1890ff', cursor: 'pointer' }} />
+                <EditOutlined className="text-xl" style={{ color: '#52c41a', cursor: 'pointer' }} />
+                <DeleteOutlined className="text-xl" style={{ color: '#ff4d4f', cursor: 'pointer' }} />
+            </Space>
+        ),
     },
 ];
 
 const Category = () => {
     const [categoryDetails, setCategoryDetails] = useState<boolean>(false);
     const [createModal, setCreateModal] = useState(false);
+    const { data: allCategory } = useGetAllCategoryQuery(undefined);
+    console.log(allCategory);
 
     return (
         <>
@@ -94,7 +77,9 @@ const Category = () => {
                 <Button className="text-base">+ Add Category</Button>
             </div>
 
-            <div className="grid grid-cols-3 gap-5 pr-5">
+            <Table dataSource={dataSource} columns={columns} pagination={false} />
+
+            {/* <div className="grid grid-cols-3 gap-5 pr-5">
                 {data.map(({ title, revenue, city, amount, men, year, user, man, calender, image }) => (
                     <div key={title} className="rounded-lg border border-gray-200 bg-white shadow-lg mb-6 ">
                         <img
@@ -125,7 +110,7 @@ const Category = () => {
                         </div>
                     </div>
                 ))}
-            </div>
+            </div> */}
 
             {/* Category details modal */}
             {categoryDetails && <CategoryModal isOpen={categoryDetails} onClose={() => setCategoryDetails(false)} />}
