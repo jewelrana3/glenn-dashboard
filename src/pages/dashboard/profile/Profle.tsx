@@ -11,19 +11,20 @@ export default function Profile() {
     const [form] = Form.useForm();
 
     const { data, isLoading, isError } = useProfileQuery(undefined);
-    console.log(data);
+
+    console.log(data?.data?.data);
 
     useEffect(() => {
         if (data) {
             form.setFieldsValue({
                 name: data?.data?.name,
                 email: data?.data?.email,
-                Password: data?.password,
+                profile: data?.data?.profile,
             });
         }
     }, [data, form]);
 
-    const imageUrl = data?.profile || 'https://i.ibb.co.com/ZzZ1DXff/Frame-2147226688.png'; // Dynamic avatar URL if available
+    console.log(form.getFieldValue('profile'));
 
     if (isLoading) {
         return <div>Loading...</div>; // Handle loading state
@@ -48,11 +49,11 @@ export default function Profile() {
                 <div className="flex items-center justify-between gap-4  mt-12">
                     <div className="flex items-center gap-4">
                         <div className="relative">
-                            <Avatar size={100} src={imageUrl} className="border-2 border-[#8AC2FF]" />
+                            <Avatar size={100} src={data?.data?.profile} className="border-2 border-[#8AC2FF]" />
                         </div>
 
                         <div>
-                            <h3 className="font-semibold text-2xl">Samuel Jacob Reed</h3>
+                            <h3 className="font-semibold text-2xl">{data?.data?.name}</h3>
                         </div>
                     </div>
                     <div className="">
@@ -84,6 +85,7 @@ export default function Profile() {
                                         <Input
                                             className="h-14 bg-inputBg hover:bg-inputBg focus:bg-inputBg rounded-xl border-none"
                                             placeholder="enter your name"
+                                            disabled
                                         />
                                     </Form.Item>
                                 </div>
@@ -96,6 +98,7 @@ export default function Profile() {
                                         <Input
                                             className="h-14 bg-inputBg hover:bg-inputBg focus:bg-inputBg rounded-xl border-none"
                                             placeholder="enter your gmail"
+                                            disabled
                                         />
                                     </Form.Item>
                                 </div>

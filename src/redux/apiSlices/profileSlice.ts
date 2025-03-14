@@ -8,7 +8,15 @@ const profileSlice = api.injectEndpoints({
                 method: 'GET',
             }),
         }),
+
+        updateProfile: builder.mutation({
+            query: (data) => ({
+                url: '/user',
+                method: 'PATCH',
+                body: data,
+            }),
+        }),
     }),
 });
 
-export const { useProfileQuery } = profileSlice;
+export const { useProfileQuery, useUpdateProfileMutation } = profileSlice;

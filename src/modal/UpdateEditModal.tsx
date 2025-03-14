@@ -121,7 +121,7 @@ export default function UpdateEditModal({ setOpenModal, openModal, refetch, open
 
                 {/* Submit Button */}
                 <Form.Item className="flex justify-end">
-                    <Button className="bg-[#007ba5] text-white" htmlType="submit">
+                    <Button className="!bg-[#007ba5] text-white" htmlType="submit">
                         {openEditModal?._id ? 'Update' : 'Add'}
                     </Button>
                 </Form.Item>

@@ -21,34 +21,26 @@ const categorySlice = api.injectEndpoints({
             },
         }),
 
-        // getSingleFaq: builder.query({
-        //     query: (id) => {
-        //         return {
-        //             method: 'GET',
-        //             url: `/faq/${id}`,
-        //         };
-        //     },
-        // }),
+        deleteCategory: builder.mutation({
+            query: (id) => {
+                return {
+                    url: `/category/${id}`,
+                    method: 'DELETE',
+                };
+            },
+        }),
 
-        // deleteFaq: builder.mutation({
-        //     query: (id) => {
-        //         return {
-        //             url: `/faq/${id}`,
-        //             method: 'DELETE',
-        //         };
-        //     },
-        // }),
-
-        // editFaq: builder.mutation({
-        //     query: (data) => {
-        //         return {
-        //             url: `/faq/${data?._id}`,
-        //             method: 'PATCH',
-        //             body: data,
-        //         };
-        //     },
-        // }),
+        editCategory: builder.mutation({
+            query: (data) => {
+                return {
+                    url: `/category/${data?._id}`,
+                    method: 'PATCH',
+                    body: data,
+                };
+            },
+        }),
     }),
 });
 
-export const { useCreateCategoryMutation, useGetAllCategoryQuery } = categorySlice;
+export const { useCreateCategoryMutation, useGetAllCategoryQuery, useEditCategoryMutation, useDeleteCategoryMutation } =
+    categorySlice;

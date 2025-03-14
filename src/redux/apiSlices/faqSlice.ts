@@ -21,15 +21,6 @@ const faqSlice = api.injectEndpoints({
             },
         }),
 
-        getSingleFaq: builder.query({
-            query: (id) => {
-                return {
-                    method: 'GET',
-                    url: `/faq/${id}`,
-                };
-            },
-        }),
-
         deleteFaq: builder.mutation({
             query: (id) => {
                 return {
@@ -51,10 +42,4 @@ const faqSlice = api.injectEndpoints({
     }),
 });
 
-export const {
-    useCreateFaqMutation,
-    useGetAllFaqQuery,
-    useDeleteFaqMutation,
-    useEditFaqMutation,
-    useGetSingleFaqQuery,
-} = faqSlice;
+export const { useCreateFaqMutation, useGetAllFaqQuery, useDeleteFaqMutation, useEditFaqMutation } = faqSlice;

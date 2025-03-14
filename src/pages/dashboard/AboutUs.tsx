@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../components/shared/Button';
 
 import Swal from 'sweetalert2';
-import { useCreateAboutMutation, useGetAboutQuery } from '../../redux/apiSlices/AboutSlice';
+import { useCreateAboutMutation, useGetAboutQuery } from '../../redux/apiSlices/aboutSlice';
 
 export default function AboutUs() {
     const editor = useRef(null);

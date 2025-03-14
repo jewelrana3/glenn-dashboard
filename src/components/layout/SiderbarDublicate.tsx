@@ -7,17 +7,21 @@ import about from '../../../public/sidebar-icon/about.svg';
 import privacy from '../../../public/sidebar-icon/privacy.svg';
 import terms from '../../../public/sidebar-icon/terms.svg';
 import dashboard from '../../../public/dashboard/dashboard.svg';
-import visitor from '../../../public/dashboard/visitor.svg';
+// import visitor from '../../../public/dashboard/visitor.svg';
 import { CiLock, CiLogout } from 'react-icons/ci';
 import './SiderbarDublicate.css';
 import { MdKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md';
 
 const menuItems = [
     { label: 'Dashboard', path: '/', icon: <img src={dashboard} width={22} height={22} alt="dashboard" /> },
-    { label: 'Visitor', path: '/visitor', icon: <img src={visitor} alt="visitor" width={28} height={28} /> },
-    // { label: 'Earing', path: '/earing', icon: <img src={earings} alt="earing" width={22} height={22} /> },
-    // { label: 'Agency', path: '/agency', icon: <img src={agency} alt="agency" width={22} height={22} /> },
+    // { label: 'Visitor', path: '/visitor', icon: <img src={visitor} alt="visitor" width={28} height={28} /> },
+
     { label: 'Category', path: '/category', icon: <img src={category} alt="category" width={22} height={22} /> },
+    {
+        label: 'FAQ',
+        path: '/faq',
+        icon: <img src={terms} width={22} height={22} alt="faq" />,
+    },
 ];
 
 const settings = [
@@ -39,11 +43,6 @@ const settings = [
                 label: 'Terms And Condition',
                 path: '/terms-condition',
                 icon: <img src={terms} width={22} height={22} alt="terms" />,
-            },
-            {
-                label: 'FAQ',
-                path: '/faq',
-                icon: <img src={terms} width={22} height={22} alt="faq" />,
             },
         ],
     },

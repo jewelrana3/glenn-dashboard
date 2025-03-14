@@ -1,6 +1,6 @@
 import Chart from './Chart';
 import EventStates from './EventStates';
-import RecentUser from './RcentUser';
+import RecentUser from './VisitorChart';
 
 export default function Dashboard() {
     return (
