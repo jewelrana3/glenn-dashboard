@@ -19,7 +19,7 @@ export default function Blog() {
     const { data: allBlog, refetch } = useAllBlogDataQuery(undefined);
 
     const dataSource = allBlog?.data?.blogs || [];
-    console.log(dataSource);
+    console.log(dataSource[9].image);
 
     const columns = [
         {

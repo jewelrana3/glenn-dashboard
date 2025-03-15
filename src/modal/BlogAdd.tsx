@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for styling
 import { IoMdClose } from 'react-icons/io';
 import { useAddBlogMutation } from '../redux/apiSlices/blogSlice';
 import { UploadChangeParam } from 'antd/es/upload';
+import Swal from 'sweetalert2';
 
 interface FormData {
     title: string;
@@ -31,16 +32,16 @@ const BlogAdd = ({ isOpen, onClose, refetch }) => {
                 content: isOpen?.content || '',
                 image: isOpen?.imageUrl || '',
             });
-            setImageUrl(isOpen?.imageUrl || ''); // Ensure existing image is displayed
+            setImageUrl(isOpen?.imageUrl?.data || '');
         }
-    }, []);
+    }, [isOpen]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
+        setFormData((prev) => ({
+            ...prev,
             [name]: value,
-        });
+        }));
     };
 
     const handleImageChange = (info: UploadChangeParam<UploadFile<any>>) => {
@@ -67,17 +68,35 @@ const BlogAdd = ({ isOpen, onClose, refetch }) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(formData);
 
         try {
-            await addBlog(formData);
-            toast.success('Category Added successfully!');
-
-            refetch();
-            onClose();
-            setFormData({ title: '', content: '', image: '' });
+            const res = await addBlog(formData);
+            if (res?.data?.success) {
+                Swal.fire({
+                    text: res?.data?.message,
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500,
+                }).then(() => {
+                    refetch();
+                    onClose();
+                    setFormData({ title: '', content: '', image: '' });
+                    setImageUrl('');
+                });
+            } else {
+                Swal.fire({
+                    text: res?.data?.message || 'Something went wrong',
+                    icon: 'error',
+                    showConfirmButton: true,
+                });
+            }
         } catch (error) {
-            toast.error('Something went wrong. Please try again.');
+            console.error('Something went wrong. Please try again.');
+            Swal.fire({
+                text: 'An error occurred. Please try again.',
+                icon: 'error',
+                showConfirmButton: true,
+            });
         }
     };
 
