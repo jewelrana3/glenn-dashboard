@@ -1,5 +1,5 @@
 import { api } from '../api/baseApi';
-
+const resetToken = localStorage.getItem('resetToken');
 const authSlice = api.injectEndpoints({
     endpoints: (builder) => ({
         login: builder.mutation({
@@ -34,18 +34,13 @@ const authSlice = api.injectEndpoints({
 
         resetPasswod: builder.mutation({
             query: (value) => {
-                const token = localStorage.getItem('oneTimeToken');
-
-                if (!token) {
-                    console.error('Token is missing!');
-                }
-
+                console.log('Reset Token:', resetToken);
                 return {
                     method: 'POST',
                     url: '/auth/reset-password',
                     body: value,
                     headers: {
-                        Authorization: `${token}`,
+                        Authorization: `${resetToken}`,
                     },
                 };
             },

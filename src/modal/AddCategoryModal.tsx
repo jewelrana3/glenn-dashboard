@@ -75,7 +75,7 @@ const AddCategoryModal = ({ isOpen, onClose, refetch, editCategory, setEditCateg
                     {/* Fuel */}
                     <div className=" gap-4">
                         <div>
-                            <label htmlFor="fuel" className="block text-sm font-medium">
+                            <label htmlFor="title" className="block text-sm font-medium mb-2">
                                 Title
                             </label>
                             <input

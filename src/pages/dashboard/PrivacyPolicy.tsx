@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import JoditEditor from 'jodit-react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/shared/Button';
-import { useCreatePolicyMutation, useGetPrivacyPolicyQuery } from '../../redux/apiSlices/PrivacyPolicySlice';
+import { useCreatePolicyMutation, useGetPrivacyPolicyQuery } from '../../redux/apiSlices/privacyPolicySlice';
 import Swal from 'sweetalert2';
 
 export default function PrivacyPolicy() {

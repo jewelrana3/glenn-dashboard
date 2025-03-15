@@ -36,7 +36,7 @@ const Category = () => {
             title: 'S.No',
             dataIndex: 'key',
             key: 'key',
-            render: (text: string, _: any, index: number) => index + 1,
+            render: (_: any, __: any, index: number) => index + 1,
             align: 'center' as 'center',
         },
         {

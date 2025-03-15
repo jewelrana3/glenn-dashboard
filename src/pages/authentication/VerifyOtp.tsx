@@ -59,7 +59,6 @@ const VerifyOtp = () => {
 
         await otpVerify(data).then((res) => {
             if (res?.data?.success) {
-                localStorage.setItem('oneTimeToken', res?.data?.data);
                 Swal.fire({
                     text: res?.data?.message,
                     icon: 'success',

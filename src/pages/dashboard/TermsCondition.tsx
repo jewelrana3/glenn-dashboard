@@ -3,8 +3,8 @@ import { useRef, useState, useEffect } from 'react';
 import JoditEditor from 'jodit-react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/shared/Button';
-import { useCreateTermsConditionMutation, useGetTermsConditionQuery } from '../../redux/apiSlices/TermsConditionSlice';
 import Swal from 'sweetalert2';
+import { useCreateTermsConditionMutation, useGetTermsConditionQuery } from '../../redux/apiSlices/termsConditionSlice';
 
 export default function TermsCondition() {
     const editor = useRef(null);

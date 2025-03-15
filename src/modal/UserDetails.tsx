@@ -42,7 +42,7 @@ UserDetailsModalProps) => {
                     ))}
                 </div>
                 <div className="flex justify-end items-center mt-4">
-                    <Button className="flex justify-center items-center" onClose={onClose}>
+                    <Button className="flex justify-center items-center" onClick={onClose}>
                         Done
                     </Button>
                 </div>

@@ -17,6 +17,7 @@ const menuItems = [
     // { label: 'Visitor', path: '/visitor', icon: <img src={visitor} alt="visitor" width={28} height={28} /> },
 
     { label: 'Category', path: '/category', icon: <img src={category} alt="category" width={22} height={22} /> },
+    { label: 'Blog', path: '/blog', icon: <img src={category} alt="blog" width={22} height={22} /> },
     {
         label: 'FAQ',
         path: '/faq',

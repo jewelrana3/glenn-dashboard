@@ -18,6 +18,7 @@ import AboutUs from '../pages/dashboard/AboutUs';
 import TermsCondition from '../pages/dashboard/TermsCondition';
 import Visitor from '../pages/dashboard/users/Users';
 import Faq from '../pages/dashboard/faq/Faq';
+import Blog from '../pages/dashboard/blog/Blog';
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
             { path: '/visitor', element: <Visitor /> },
             { path: '/agency', element: <Agency /> },
             { path: '/category', element: <Category /> },
+            { path: '/blog', element: <Blog /> },
             { path: '/about-us', element: <AboutUs /> },
             { path: '/terms-condition', element: <TermsCondition /> },
             { path: '/policy', element: <PrivacyPolicy /> },

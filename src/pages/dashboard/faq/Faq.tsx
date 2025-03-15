@@ -65,31 +65,27 @@ export default function Faq() {
             <div className={' duration-500'}>
                 {getAllFaq?.data?.map((faq: { question: string; answer: string; _id: number }) => {
                     return (
-                        <>
-                            <div key={faq._id}>
-                                <div className="border border-gray-200 rounded-xl my-5 p-3">
-                                    <div className="flex items-center justify-between">
-                                        <div>
-                                            <h3 className=" font-semibold leading-[30px] text-black">{faq.question}</h3>
-                                        </div>
-                                        <div className="flex gap-3">
-                                            <button
-                                                onClick={() => {
-                                                    setOpenEditModal(faq);
-                                                    setOpenModal(true);
-                                                }}
-                                            >
-                                                <CiEdit size={24} className="text-[#757575]" />
-                                            </button>
-                                            <button onClick={() => handleDelete(faq._id)}>
-                                                <IoMdClose size={24} className="text-red-600" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <p className="text-gray-800 mt-5 text-[14px]">{faq.answer}</p>
+                        <div className="border border-gray-200 rounded-xl my-5 p-3" key={faq._id}>
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <h3 className=" font-semibold leading-[30px] text-black">{faq.question}</h3>
+                                </div>
+                                <div className="flex gap-3">
+                                    <button
+                                        onClick={() => {
+                                            setOpenEditModal(faq);
+                                            setOpenModal(true);
+                                        }}
+                                    >
+                                        <CiEdit size={24} className="text-[#757575]" />
+                                    </button>
+                                    <button onClick={() => handleDelete(faq._id)}>
+                                        <IoMdClose size={24} className="text-red-600" />
+                                    </button>
                                 </div>
                             </div>
-                        </>
+                            <p className="text-gray-800 mt-5 text-[14px]">{faq.answer}</p>
+                        </div>
                     );
                 })}
             </div>
