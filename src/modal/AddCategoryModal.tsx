@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Modal from './Modal';
 import { useCreateCategoryMutation, useEditCategoryMutation } from '../redux/apiSlices/categorySlice';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for styling
+import { toast } from 'react-toastify';
 import { IoMdClose } from 'react-icons/io';
 
 interface FormData {
@@ -12,7 +11,7 @@ interface FormData {
 // @ts-ignore
 const AddCategoryModal = ({ isOpen, onClose, refetch, editCategory, setEditCategory }) => {
     const [createCategory] = useCreateCategoryMutation();
-    const [useEditCategory] = useEditCategoryMutation();
+    const [editCategoryMutation] = useEditCategoryMutation();
     const [formData, setFormData] = useState<FormData>({
         name: '',
     });
@@ -47,16 +46,16 @@ const AddCategoryModal = ({ isOpen, onClose, refetch, editCategory, setEditCateg
 
         try {
             if (editCategory) {
-                await useEditCategory(data);
-                toast.success('Category Added successfully!');
-            } else {
+                await editCategoryMutation(data);
                 toast.success('Category updated successfully!');
+            } else {
                 await createCategory(formData);
+                toast.success('Category added successfully!');
             }
             refetch();
             onClose();
-            setEditCategory(null);
-            setFormData({ name: '' });
+            setEditCategory(null); // Clear edit state after submission
+            setFormData({ name: '' }); // Reset form data
         } catch (error) {
             toast.error('Something went wrong. Please try again.');
         }
@@ -64,28 +63,28 @@ const AddCategoryModal = ({ isOpen, onClose, refetch, editCategory, setEditCateg
 
     return (
         <Modal isOpen={isOpen}>
-            <div className=" p-6 rounded-lg shadow-lg w-[500px]">
+            <div className="p-6 rounded-lg shadow-lg w-[500px]">
                 <div className="flex justify-end">
                     <button onClick={onClose}>
                         <IoMdClose size={24} />
                     </button>
                 </div>
-                <h2 className="text-xl font-semibold mb-4">{editCategory ? ' Edit Category' : 'Add New Category'}</h2>
+                <h2 className="text-xl font-semibold mb-4">{editCategory ? 'Edit Category' : 'Add New Category'}</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Fuel */}
-                    <div className=" gap-4">
+                    {/* Category Name */}
+                    <div className="gap-4">
                         <div>
-                            <label htmlFor="title" className="block text-sm font-medium mb-2">
-                                Title
+                            <label htmlFor="name" className="block text-sm font-medium mb-2">
+                                Category Name
                             </label>
                             <input
                                 type="text"
-                                id="fuel"
+                                id="name"
                                 name="name"
                                 value={formData.name}
                                 onChange={handleChange}
-                                placeholder="Enter your fuel category"
-                                className="w-full border border-black h-12   rounded-lg px-4 focus:outline-none"
+                                placeholder="Enter category name"
+                                className="w-full border border-black h-12 rounded-lg px-4 focus:outline-none"
                             />
                         </div>
                     </div>
@@ -96,7 +95,6 @@ const AddCategoryModal = ({ isOpen, onClose, refetch, editCategory, setEditCateg
                     </button>
                 </form>
             </div>
-            <ToastContainer position="top-right" />
         </Modal>
     );
 };

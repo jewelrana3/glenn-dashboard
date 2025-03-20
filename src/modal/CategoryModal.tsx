@@ -34,8 +34,8 @@ export default function CategoryModal({ isOpen, onClose }: CategoryModalProps) {
                 </button>
             </div>
             <div className="space-y-2 p-4">
-                {carDetails.map((detail, index) => (
-                    <div key={index} className="grid grid-cols-2 gap-6 px-2">
+                {carDetails.map((detail) => (
+                    <div key={detail.label} className="grid grid-cols-2 gap-6 px-2">
                         <span className="text-[#757575] font-semibold">{detail.label} :</span>
                         <span className="font-semibold">{detail.value}</span>
                     </div>

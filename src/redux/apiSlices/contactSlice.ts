@@ -2,16 +2,15 @@ import { api } from '../api/baseApi';
 
 const contactSlice = api.injectEndpoints({
     endpoints: (builder) => ({
-        createContact: builder.mutation({
-            query: (data) => {
+        getContacts: builder.query({
+            query: () => {
                 return {
                     url: '/contact',
-                    method: 'POST',
-                    body: data,
+                    method: 'GET',
                 };
             },
         }),
     }),
 });
 
-export const { useCreateContactMutation } = contactSlice;
+export const { useGetContactsQuery } = contactSlice;

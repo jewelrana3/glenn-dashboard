@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { IoSettingsOutline } from 'react-icons/io5';
 
 import category from '../../../public/sidebar-icon/category.svg';
@@ -11,6 +11,7 @@ import dashboard from '../../../public/dashboard/dashboard.svg';
 import { CiLock, CiLogout } from 'react-icons/ci';
 import './SiderbarDublicate.css';
 import { MdKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md';
+import { RiContactsBook3Line } from 'react-icons/ri';
 
 const menuItems = [
     { label: 'Dashboard', path: '/', icon: <img src={dashboard} width={22} height={22} alt="dashboard" /> },
@@ -22,6 +23,16 @@ const menuItems = [
         label: 'FAQ',
         path: '/faq',
         icon: <img src={terms} width={22} height={22} alt="faq" />,
+    },
+    {
+        label: 'Contact',
+        path: '/contact',
+        icon: <RiContactsBook3Line size={22} />,
+    },
+    {
+        label: 'Transaction',
+        path: '/transaction',
+        icon: <RiContactsBook3Line size={22} />,
     },
 ];
 
@@ -53,6 +64,7 @@ export default function SiderbarDublicate() {
     const location = useLocation();
     const [settingIcon, setSettingIcon] = useState<boolean>(false);
     const [isSetting, setIsSetting] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     const getMenuItemClass = (path: string) => {
         return location.pathname === path && 'active';
@@ -61,6 +73,12 @@ export default function SiderbarDublicate() {
     const handleSetting = () => {
         setIsSetting(!isSetting);
         setSettingIcon(!settingIcon);
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('accressToken');
+        localStorage.removeItem('refreshToken');
+        navigate('/login');
     };
 
     return (
@@ -102,7 +120,6 @@ export default function SiderbarDublicate() {
                             <ul className="submenu ml-5 mb-4">
                                 {settings?.[0].children.map(
                                     (item: { label: string; path: string; icon: JSX.Element }) => {
-                                        console.log(item);
                                         return (
                                             <li
                                                 key={item.path}
@@ -119,14 +136,16 @@ export default function SiderbarDublicate() {
                             </ul>
                         )}
                     </li>
-                    <Link to="/login">
-                        <li className={`menu-item cursor-pointer mt-[10%]`}>
-                            <div className="flex items-center justify-center gap-3 border border-gray-400 py-2 px-1 rounded-xl">
-                                <CiLogout className="font-bold " size={23} />
-                                <span className=" text-[#333]">Logout</span>
-                            </div>
-                        </li>
-                    </Link>
+
+                    <li className={`menu-item cursor-pointer mt-[10%]`}>
+                        <div
+                            className="flex items-center justify-center gap-3 border border-gray-400 py-2 px-1 rounded-xl"
+                            onClick={handleLogout}
+                        >
+                            <CiLogout className="font-bold " size={23} />
+                            <span className=" text-[#333]">Logout</span>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>

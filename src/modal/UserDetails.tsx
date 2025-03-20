@@ -34,8 +34,8 @@ UserDetailsModalProps) => {
             <div className="bg-bgModal p-5 rounded-lg pt-10">
                 <h2 className="text-lg font-semibold mb-4">Visitor Details</h2>
                 <div className="space-y-2">
-                    {agencyDetails.map((detail, index) => (
-                        <div key={index} className="grid grid-cols-2 gap-14 py-1">
+                    {agencyDetails.map((detail) => (
+                        <div key={detail.label} className="grid grid-cols-2 gap-14 py-1">
                             <p>{detail.label} :</p>
                             <strong className="text-start">{detail.value}</strong>
                         </div>

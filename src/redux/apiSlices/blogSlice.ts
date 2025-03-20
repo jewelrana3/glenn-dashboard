@@ -1,5 +1,4 @@
 import { api } from '../api/baseApi';
-
 const blogSlice = api.injectEndpoints({
     endpoints: (builder) => ({
         AllBlogData: builder.query({
@@ -20,7 +19,27 @@ const blogSlice = api.injectEndpoints({
                 };
             },
         }),
+
+        editBlog: builder.mutation({
+            query: (data) => {
+                return {
+                    url: `/blog/${data._id}`,
+                    method: 'PATCH',
+                    body: data,
+                };
+            },
+        }),
+
+        blogDelete: builder.mutation({
+            query: (id) => {
+                return {
+                    url: `/blog/${id}`,
+                    method: 'DELETE',
+                };
+            },
+        }),
     }),
 });
 
-export const { useAllBlogDataQuery, useAddBlogMutation } = blogSlice;
+// Export hooks to be used in your components
+export const { useAllBlogDataQuery, useAddBlogMutation, useEditBlogMutation, useBlogDeleteMutation } = blogSlice;

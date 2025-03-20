@@ -16,9 +16,10 @@ import SignUp from '../pages/authentication/SignUp';
 import Category from '../pages/dashboard/category/Category';
 import AboutUs from '../pages/dashboard/AboutUs';
 import TermsCondition from '../pages/dashboard/TermsCondition';
-import Visitor from '../pages/dashboard/users/Users';
 import Faq from '../pages/dashboard/faq/Faq';
 import Blog from '../pages/dashboard/blog/Blog';
+import Contact from '../pages/dashboard/contact/Contact';
+import Transaction from '../pages/dashboard/transaction/Transaction';
 
 const router = createBrowserRouter([
     {
@@ -27,7 +28,6 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             { path: '/', element: <Dashboard /> },
-            { path: '/visitor', element: <Visitor /> },
             { path: '/agency', element: <Agency /> },
             { path: '/category', element: <Category /> },
             { path: '/blog', element: <Blog /> },
@@ -39,6 +39,8 @@ const router = createBrowserRouter([
             { path: '/profile', element: <Profile /> },
             { path: '/edit-profile', element: <EditProfile /> },
             { path: '/faq', element: <Faq /> },
+            { path: '/contact', element: <Contact /> },
+            { path: '/transaction', element: <Transaction /> },
             { path: '/change-password', element: <ChangePassword /> },
         ],
     },

@@ -58,6 +58,7 @@ const VerifyOtp = () => {
         };
 
         await otpVerify(data).then((res) => {
+            console.log('reset token res', res);
             if (res?.data?.success) {
                 Swal.fire({
                     text: res?.data?.message,

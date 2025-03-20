@@ -8,11 +8,15 @@ export const api = createApi({
         baseUrl: 'http://10.0.80.75:6006/api/v1',
         prepareHeaders: (headers) => {
             const token = localStorage.getItem('accressToken') || sessionStorage.getItem('accressToken');
+            // localStorage.getItem('resetToken');
+            // const resetToken = localStorage.getItem('resetToken');
             if (token) {
-                headers.set('Authorization', `Bearer ${token}`);
+                headers.set('Authorization', ` Bearer ${token}`);
             }
             return headers;
         },
     }),
     endpoints: () => ({}),
 });
+
+export const imageUrl = 'http://10.0.80.75:6006';

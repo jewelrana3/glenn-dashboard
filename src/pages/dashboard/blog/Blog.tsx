@@ -1,25 +1,38 @@
 import { useState } from 'react';
 import Button from '../../../components/shared/Button';
+import { Space, Table } from 'antd';
+import { toast } from 'react-toastify';
+import { useAllBlogDataQuery, useBlogDeleteMutation } from '../../../redux/apiSlices/blogSlice';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import BlogAddEdit from '../../../modal/BlogAddEdit';
+import { imageUrl } from '../../../redux/api/baseApi';
 
-import { Table } from 'antd';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useAllBlogDataQuery } from '../../../redux/apiSlices/blogSlice';
-import BlogAdd from '../../../modal/BlogAdd';
-
-// interface Category {
-//     _id: string;
-//     title: string;
-//     name: string;
-//     image: string;
-// }
+// Define types for Blog data
+interface Blog {
+    _id: string;
+    title: string;
+    content: string;
+    image: string;
+}
 
 export default function Blog() {
     const [createModal, setCreateModal] = useState(false);
     const { data: allBlog, refetch } = useAllBlogDataQuery(undefined);
+    const [blogDelete] = useBlogDeleteMutation();
+    const [edit, setEdit] = useState<Blog | null>(null);
 
-    const dataSource = allBlog?.data?.blogs || [];
-    console.log(dataSource[9].image);
+    const dataSource: Blog[] = allBlog?.data?.blogs || [];
+    console.log(dataSource);
+
+    const handleDelete = async (blog: Blog) => {
+        try {
+            await blogDelete(blog?._id);
+            toast.success('Blog item deleted successfully!');
+            refetch();
+        } catch (err) {
+            toast.error('Error deleting blog!');
+        }
+    };
 
     const columns = [
         {
@@ -31,20 +44,14 @@ export default function Blog() {
         },
         {
             title: 'Image',
-            dataIndex: 'image',
+            dataIndex: 'imageUrl',
             key: 'image',
             align: 'center' as 'center',
-            render: (image: string) => {
-                return (
-                    <div className="flex justify-center items-center">
-                        <img
-                            src={image ? image : 'https://i.ibb.co.com/ZzZ1DXff/Frame-2147226688.png'}
-                            width={70}
-                            alt="image"
-                        />
-                    </div>
-                );
-            },
+            render: (_: unknown, item: any) => (
+                <div className="flex justify-center items-center">
+                    <img src={`${imageUrl}${item?.image}`} width={70} alt="image" />
+                </div>
+            ),
         },
         {
             title: 'Title',
@@ -58,18 +65,52 @@ export default function Blog() {
             key: 'content',
             align: 'center' as 'center',
         },
+        {
+            title: 'Action',
+            key: 'action',
+            align: 'center' as 'center',
+            render: (blog: Blog) => (
+                <Space size="large">
+                    <EditOutlined
+                        onClick={() => {
+                            setEdit(blog);
+                            setCreateModal(true);
+                        }}
+                        className="text-xl"
+                        style={{ color: '#52c41a', cursor: 'pointer' }}
+                    />
+                    <DeleteOutlined
+                        onClick={() => handleDelete(blog)}
+                        className="text-xl"
+                        style={{ color: '#ff4d4f', cursor: 'pointer' }}
+                    />
+                </Space>
+            ),
+        },
     ];
 
     return (
         <>
-            <div className="flex justify-end my-6 pr-5" onClick={() => setCreateModal(true)}>
-                <Button className="text-base">+ Add Blog</Button>
+            <div className="flex justify-end my-6 pr-5">
+                <Button className="text-base" onClick={() => setCreateModal(true)}>
+                    + Add Blog
+                </Button>
             </div>
-            <Table dataSource={dataSource} columns={columns} pagination={false} rowKey="key" />
+            <Table dataSource={dataSource} columns={columns} pagination={{ pageSize: 10 }} rowKey="_id" />
 
-            <ToastContainer position="top-right" />
-
-            {createModal && <BlogAdd refetch={refetch} isOpen={createModal} onClose={() => setCreateModal(false)} />}
+            {createModal && (
+                <BlogAddEdit
+                    refetch={refetch}
+                    isOpen={createModal}
+                    setCreateModal={setCreateModal}
+                    onClose={() => {
+                        setCreateModal(false);
+                        setEdit(null);
+                    }}
+                    edit={edit}
+                    setEdit={setEdit}
+                />
+            )}
         </>
     );
 }

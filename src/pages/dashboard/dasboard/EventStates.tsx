@@ -24,8 +24,8 @@ const EventStates = () => {
     return (
         <div>
             <div className="grid lg:grid-cols-2 xl:grid-cols-2 gap-9 my-4">
-                {data.map((item, index) => (
-                    <div key={index} className="bg-bgHeader rounded-md p-4  w-full shadow-sm ">
+                {data.map((item) => (
+                    <div key={item.name} className="bg-bgHeader rounded-md p-4  w-full shadow-sm ">
                         <div className="flex  items-center gap-3 px-4">
                             <div className={` w-[54px] h-[54px] rounded-full flex items-center justify-center `}>
                                 <img src={item.image} width={80} height={80} alt={item.alt} />

@@ -15,14 +15,14 @@ interface Category {
 const Category = () => {
     const [createModal, setCreateModal] = useState(false);
     const { data: allCategory, refetch } = useGetAllCategoryQuery(undefined);
-    const [editCategory, setEditCategory] = useState<any>(null);
+    const [editCategory, setEditCategory] = useState<Category | null>(null);
     const [deleteCategory] = useDeleteCategoryMutation();
 
-    const dataSource = allCategory?.data || [];
+    const dataSource: Category[] = allCategory?.data || [];
 
-    const handleDelete = async (_: Category) => {
+    const handleDelete = async (category: Category) => {
         try {
-            await deleteCategory(_._id);
+            await deleteCategory(category._id);
             toast.success('Category deleted successfully!');
             refetch();
         } catch (error) {
@@ -45,23 +45,22 @@ const Category = () => {
             key: 'name',
             align: 'center' as 'center',
         },
-
         {
             title: 'Action',
             key: 'action',
             align: 'center' as 'center',
-            render: (_: any) => (
+            render: (category: Category) => (
                 <Space size="large">
                     <EditOutlined
                         onClick={() => {
-                            setEditCategory(_);
+                            setEditCategory(category);
                             setCreateModal(true);
                         }}
                         className="text-xl"
                         style={{ color: '#52c41a', cursor: 'pointer' }}
                     />
                     <DeleteOutlined
-                        onClick={() => handleDelete(_)}
+                        onClick={() => handleDelete(category)}
                         className="text-xl"
                         style={{ color: '#ff4d4f', cursor: 'pointer' }}
                     />
@@ -75,17 +74,28 @@ const Category = () => {
             <div className="flex justify-end my-6 pr-5" onClick={() => setCreateModal(true)}>
                 <Button className="text-base">+ Add Category</Button>
             </div>
-            <Table dataSource={dataSource} columns={columns} pagination={false} rowKey="key" />
+
+            {/* Table displaying categories */}
+            <Table
+                dataSource={dataSource}
+                columns={columns}
+                pagination={{ pageSize: 10 }} // Add pagination for better UX
+                rowKey="_id" // Using _id as the row key
+            />
 
             <ToastContainer position="top-right" />
 
+            {/* Add or Edit Category Modal */}
             {createModal && (
                 <AddCategoryModal
                     refetch={refetch}
                     isOpen={createModal}
                     editCategory={editCategory}
                     setEditCategory={setEditCategory}
-                    onClose={() => setCreateModal(false)}
+                    onClose={() => {
+                        setCreateModal(false);
+                        setEditCategory(null); // Reset the edit category on modal close
+                    }}
                 />
             )}
         </>

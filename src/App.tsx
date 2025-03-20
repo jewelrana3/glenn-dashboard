@@ -1,5 +1,7 @@
 import MainLayout from './components/layout/MainLayout';
 import { ConfigProvider } from 'antd';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import global styles
 
 function App() {
     return (
@@ -32,6 +34,7 @@ function App() {
             >
                 <MainLayout />
             </ConfigProvider>
+            <ToastContainer position="top-right" />
         </>
     );
 }
