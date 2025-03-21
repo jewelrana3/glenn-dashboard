@@ -1,12 +1,13 @@
 import { IoMdClose } from 'react-icons/io';
 import Modal from './Modal';
 
-interface ContactDetailsModalProps {
-    collectData: { message: string; name: string; email: string; phone: string };
+interface ContentDetailsProps {
+    isOpen: boolean;
+    onClose: () => void;
+    collectData: { content: string };
 }
 
-// @ts-ignore
-export default function ContactDetailsModal({ isOpen, onClose, collectData }: ContactDetailsModalProps) {
+export default function ContentDetails({ isOpen, onClose, collectData }: ContentDetailsProps) {
     return (
         <Modal isOpen={isOpen}>
             <div className=" p-6 rounded-lg shadow-lg w-[500px]">
@@ -15,8 +16,8 @@ export default function ContactDetailsModal({ isOpen, onClose, collectData }: Co
                         <IoMdClose size={24} />
                     </button>
                 </div>
-                <h1 className="text-xl mb-6">Contact Message</h1>
-                <p className="border border-black p-3 rounded-md">{collectData?.message}</p>
+                <h1 className="text-xl mb-6">Blog Content</h1>
+                <p className="border border-black p-3 rounded-md">{collectData?.content}</p>
             </div>
         </Modal>
     );

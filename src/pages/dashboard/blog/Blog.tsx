@@ -6,6 +6,8 @@ import { useAllBlogDataQuery, useBlogDeleteMutation } from '../../../redux/apiSl
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import BlogAddEdit from '../../../modal/BlogAddEdit';
 import { imageUrl } from '../../../redux/api/baseApi';
+import { IoEyeOutline } from 'react-icons/io5';
+import ContentDetails from '../../../modal/ContentDetails';
 
 // Define types for Blog data
 interface Blog {
@@ -20,6 +22,10 @@ export default function Blog() {
     const { data: allBlog, refetch } = useAllBlogDataQuery(undefined);
     const [blogDelete] = useBlogDeleteMutation();
     const [edit, setEdit] = useState<Blog | null>(null);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [collectData, setCollectData] = useState<{
+        content: string;
+    } | null>(null);
 
     const dataSource: Blog[] = allBlog?.data?.blogs || [];
     console.log(dataSource);
@@ -64,6 +70,9 @@ export default function Blog() {
             dataIndex: 'content',
             key: 'content',
             align: 'center' as 'center',
+            render: (_: any, record: { content: string }) => {
+                return <span>{record?.content.slice(0, 20)}...</span>;
+            },
         },
         {
             title: 'Action',
@@ -71,6 +80,13 @@ export default function Blog() {
             align: 'center' as 'center',
             render: (blog: Blog) => (
                 <Space size="large">
+                    <IoEyeOutline
+                        className="cursor-pointer"
+                        size={22}
+                        onClick={() => {
+                            setIsOpen(true), setCollectData(blog);
+                        }}
+                    />
                     <EditOutlined
                         onClick={() => {
                             setEdit(blog);
@@ -110,6 +126,10 @@ export default function Blog() {
                     edit={edit}
                     setEdit={setEdit}
                 />
+            )}
+
+            {isOpen && collectData && (
+                <ContentDetails isOpen={isOpen} onClose={() => setIsOpen(false)} collectData={collectData} />
             )}
         </>
     );

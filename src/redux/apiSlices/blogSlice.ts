@@ -21,11 +21,12 @@ const blogSlice = api.injectEndpoints({
         }),
 
         editBlog: builder.mutation({
-            query: (data) => {
+            query: ({ _id, formData }) => {
+                console.log(_id);
                 return {
-                    url: `/blog/${data._id}`,
+                    url: `/blog/${_id}`,
                     method: 'PATCH',
-                    body: data,
+                    body: formData,
                 };
             },
         }),

@@ -12,13 +12,16 @@ import { CiLock, CiLogout } from 'react-icons/ci';
 import './SiderbarDublicate.css';
 import { MdKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md';
 import { RiContactsBook3Line } from 'react-icons/ri';
+import { BsBlockquoteLeft } from 'react-icons/bs';
+import { FcMoneyTransfer } from 'react-icons/fc';
 
 const menuItems = [
     { label: 'Dashboard', path: '/', icon: <img src={dashboard} width={22} height={22} alt="dashboard" /> },
     // { label: 'Visitor', path: '/visitor', icon: <img src={visitor} alt="visitor" width={28} height={28} /> },
 
     { label: 'Category', path: '/category', icon: <img src={category} alt="category" width={22} height={22} /> },
-    { label: 'Blog', path: '/blog', icon: <img src={category} alt="blog" width={22} height={22} /> },
+    // { label: 'Blog', path: '/blog', icon: <img src={category} alt="blog" width={22} height={22} /> },
+    { label: 'Blog', path: '/blog', icon: <BsBlockquoteLeft size={24} /> },
     {
         label: 'FAQ',
         path: '/faq',
@@ -32,7 +35,7 @@ const menuItems = [
     {
         label: 'Transaction',
         path: '/transaction',
-        icon: <RiContactsBook3Line size={22} />,
+        icon: <FcMoneyTransfer size={22} />,
     },
 ];
 

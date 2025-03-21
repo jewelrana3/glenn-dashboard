@@ -40,6 +40,10 @@ export default function Contact() {
             dataIndex: 'message',
             key: 'message',
             align: 'center' as 'center',
+
+            render: (_: any, render: { message: string }, index: number) => {
+                return <span key={index}>{render.message.slice(0, 5)}...</span>;
+            },
         },
         {
             title: 'Action',

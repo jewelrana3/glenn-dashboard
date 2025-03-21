@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Modal from './Modal';
-
 import 'react-toastify/dist/ReactToastify.css';
 import { IoMdClose } from 'react-icons/io';
 import { useAddBlogMutation, useEditBlogMutation } from '../redux/apiSlices/blogSlice';
 import { Form, Input } from 'antd';
-import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
 
 //@ts-ignore
 const BlogAddEdit = ({ isOpen, onClose, refetch, edit, setEdit, setCreateModal }) => {
@@ -13,6 +12,7 @@ const BlogAddEdit = ({ isOpen, onClose, refetch, edit, setEdit, setCreateModal }
     const [addBlog] = useAddBlogMutation();
     const [editBlog] = useEditBlogMutation();
     const [selectFile, setSelectFile] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
     useEffect(() => {
         if (edit?._id) {
@@ -27,6 +27,9 @@ const BlogAddEdit = ({ isOpen, onClose, refetch, edit, setEdit, setCreateModal }
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         setSelectFile(file);
+        if (file) {
+            setPreviewUrl(URL.createObjectURL(file));
+        }
         form.setFieldsValue({ image: file?.name });
     };
 
@@ -39,55 +42,36 @@ const BlogAddEdit = ({ isOpen, onClose, refetch, edit, setEdit, setCreateModal }
             formData.append('image', selectFile);
         }
 
-        // const data = {
-        //     _id: edit?._id,
-        //     title: edit?.title,
-        //     content: edit?.content,
-        //     image: edit?.image,
-        // };
-
         if (edit?._id) {
-            formData.append('_id', edit._id);
-            const res = await editBlog(formData);
+            const res = await editBlog({ _id: edit._id, formData });
             if (res?.data?.success) {
-                Swal.fire({
-                    text: res?.data?.message,
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 1500,
-                }).then(() => {
-                    refetch();
-                    setCreateModal(false);
-                    setEdit(null);
-                    form.resetFields();
-                });
+                toast.success('Blog Update Successfully');
+                refetch();
+                setCreateModal(false);
+                setEdit(null);
+                form.resetFields();
             }
         } else {
-            await addBlog(values).then((res) => {
+            await addBlog(formData).then((res) => {
                 if (res?.data?.success) {
-                    Swal.fire({
-                        text: res?.data?.message,
-                        icon: 'success',
-                        showConfirmButton: false,
-                        timer: 1500,
-                    }).then(() => {
-                        refetch();
-                        form.resetFields();
-                        setCreateModal(false);
-                    });
+                    toast.success('Blog Add Successfully');
+                    refetch();
+                    form.resetFields();
+                    setCreateModal(false);
                 } else {
-                    Swal.fire({
-                        title: 'Oops',
-                        //@ts-ignore
-                        text: res?.error?.data?.message,
-                        icon: 'error',
-                        timer: 1500,
-                        showConfirmButton: false,
-                    });
+                    toast.error('Blog Not Add Successfully');
                 }
             });
         }
     };
+
+    useEffect(() => {
+        return () => {
+            if (previewUrl) {
+                URL.revokeObjectURL(file);
+            }
+        };
+    }, []);
 
     return (
         <Modal isOpen={isOpen}>
@@ -131,12 +115,8 @@ const BlogAddEdit = ({ isOpen, onClose, refetch, edit, setEdit, setCreateModal }
                                 className="w-[450px] h-[100px] flex justify-center items-center cursor-pointer border border-gray-300"
                                 onClick={() => document.getElementById('file')?.click()}
                             >
-                                {selectFile ? (
-                                    <img
-                                        src={URL.createObjectURL(selectFile)}
-                                        alt="Uploaded"
-                                        className="w-full h-full object-cover"
-                                    />
+                                {previewUrl ? (
+                                    <img src={previewUrl} alt="Uploaded" className="w-full h-full object-cover" />
                                 ) : (
                                     <span className="text-gray-500">Upload</span>
                                 )}
