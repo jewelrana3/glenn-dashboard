@@ -1,30 +1,19 @@
 import { ConfigProvider, Form, Input } from 'antd';
 import Button from '../../../components/shared/Button';
 import { useChangePasswordMutation } from '../../../redux/apiSlices/currentPasswordSlice';
-import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
 
 export default function ChangePassword() {
+    const [form] = Form.useForm();
     const [changePassword] = useChangePasswordMutation();
 
     const onFinish = async (values: any) => {
-        console.log(values);
         try {
-            const res = await changePassword(values).unwrap();
-
-            Swal.fire({
-                text: res?.message,
-                icon: 'success',
-                timer: 1500,
-                showConfirmButton: false,
-            }).then(() => {
-                window.location.reload();
-            });
+            await changePassword(values).unwrap();
+            toast.success('Password Update Successfull');
+            form.resetFields();
         } catch (error) {
-            Swal.fire({
-                //@ts-ignore
-                text: error?.data?.message,
-                icon: 'error',
-            });
+            toast.error('Password is Wrong');
         }
     };
 
@@ -37,7 +26,7 @@ export default function ChangePassword() {
                             components: {},
                         }}
                     >
-                        <Form onFinish={onFinish} layout="vertical">
+                        <Form onFinish={onFinish} layout="vertical" form={form}>
                             <span className=" text-[20px] font-semibold ">Current password</span>
                             <Form.Item
                                 name="currentPassword"

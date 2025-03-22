@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import CustomButton from '../../../components/shared/Button';
 import { useProfileQuery } from '../../../redux/apiSlices/profileSlice';
+import { imageUrl } from '../../../redux/api/baseApi';
 
 export default function Profile() {
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function Profile() {
 
     const { data, isLoading, isError } = useProfileQuery(undefined);
 
-    console.log(data?.data?.data);
+    data?.data?.role;
 
     useEffect(() => {
         if (data) {
@@ -24,14 +25,12 @@ export default function Profile() {
         }
     }, [data, form]);
 
-    console.log(form.getFieldValue('profile'));
-
     if (isLoading) {
-        return <div>Loading...</div>; // Handle loading state
+        return <div>Loading...</div>;
     }
 
     if (isError) {
-        return <div>Error loading profile.</div>; // Handle error state
+        return <div>Error loading profile.</div>;
     }
 
     return (
@@ -49,7 +48,15 @@ export default function Profile() {
                 <div className="flex items-center justify-between gap-4  mt-12">
                     <div className="flex items-center gap-4">
                         <div className="relative">
-                            <Avatar size={100} src={data?.data?.profile} className="border-2 border-[#8AC2FF]" />
+                            <Avatar
+                                size={100}
+                                src={
+                                    data?.data?.profile?.startsWith('http')
+                                        ? data?.data?.profile
+                                        : `${imageUrl}${data?.data?.profile}`
+                                }
+                                className="border-2 border-[#8AC2FF]"
+                            />
                         </div>
 
                         <div>
@@ -85,7 +92,7 @@ export default function Profile() {
                                         <Input
                                             className="h-14 bg-inputBg hover:bg-inputBg focus:bg-inputBg rounded-xl border-none"
                                             placeholder="enter your name"
-                                            disabled
+                                            readOnly
                                         />
                                     </Form.Item>
                                 </div>
@@ -98,7 +105,7 @@ export default function Profile() {
                                         <Input
                                             className="h-14 bg-inputBg hover:bg-inputBg focus:bg-inputBg rounded-xl border-none"
                                             placeholder="enter your gmail"
-                                            disabled
+                                            readOnly
                                         />
                                     </Form.Item>
                                 </div>

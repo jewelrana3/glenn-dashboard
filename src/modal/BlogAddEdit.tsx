@@ -26,6 +26,7 @@ const BlogAddEdit = ({ isOpen, onClose, refetch, edit, setEdit, setCreateModal }
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
+        //@ts-ignore
         setSelectFile(file);
         if (file) {
             setPreviewUrl(URL.createObjectURL(file));
@@ -68,6 +69,7 @@ const BlogAddEdit = ({ isOpen, onClose, refetch, edit, setEdit, setCreateModal }
     useEffect(() => {
         return () => {
             if (previewUrl) {
+                //@ts-ignore
                 URL.revokeObjectURL(file);
             }
         };

@@ -13,7 +13,7 @@ export default function AboutUs() {
     const navigate = useNavigate();
     const { data, refetch } = useGetAboutQuery(undefined);
     const [createAbout] = useCreateAboutMutation();
-    console.log(data);
+    data;
 
     const [content, setContent] = useState('');
 

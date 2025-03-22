@@ -22,7 +22,7 @@ const blogSlice = api.injectEndpoints({
 
         editBlog: builder.mutation({
             query: ({ _id, formData }) => {
-                console.log(_id);
+                _id;
                 return {
                     url: `/blog/${_id}`,
                     method: 'PATCH',

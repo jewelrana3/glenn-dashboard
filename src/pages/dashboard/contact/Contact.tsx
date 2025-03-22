@@ -7,7 +7,7 @@ import { useState } from 'react';
 export default function Contact() {
     const { data } = useGetContactsQuery(undefined);
     const dataSource = data?.data || [];
-    console.log(data);
+    data;
 
     const [collectData, setCollectData] = useState<{
         name: string;

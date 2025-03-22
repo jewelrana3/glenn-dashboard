@@ -17,11 +17,11 @@ const VerifyOtp = () => {
         const data = {
             email: userEmail.email,
         };
-        console.log({ data });
+        ({ data });
 
         try {
             const res = await resendCode(data);
-            console.log(res);
+            res;
 
             if (res?.data?.success) {
                 Swal.fire({
@@ -58,7 +58,7 @@ const VerifyOtp = () => {
         };
 
         await otpVerify(data).then((res) => {
-            console.log('reset token res', res);
+            'reset token res', res;
             if (res?.data?.success) {
                 Swal.fire({
                     text: res?.data?.message,

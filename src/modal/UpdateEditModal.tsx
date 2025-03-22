@@ -15,7 +15,7 @@ const { TextArea } = Input;
 
 //@ts-ignore
 export default function UpdateEditModal({ setOpenModal, openModal, refetch, openEditModal, setOpenEditModal }) {
-    console.log({ openEditModal });
+    ({ openEditModal });
     const [form] = Form.useForm();
     const [createFaq] = useCreateFaqMutation();
     const [editFaq] = useEditFaqMutation();

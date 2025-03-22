@@ -28,7 +28,7 @@ export default function Blog() {
     } | null>(null);
 
     const dataSource: Blog[] = allBlog?.data?.blogs || [];
-    console.log(dataSource);
+    dataSource;
 
     const handleDelete = async (blog: Blog) => {
         try {

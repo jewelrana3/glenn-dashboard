@@ -6,7 +6,7 @@ import Button from '../../components/shared/Button';
 const SignUp = () => {
     const navigate = useNavigate();
     const onFinish: FormProps<FieldNamesType>['onFinish'] = (values) => {
-        console.log('Received values of form: ', values);
+        'Received values of form: ', values;
         navigate('/');
     };
 

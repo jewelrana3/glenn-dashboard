@@ -52,7 +52,7 @@ const data = [
 export default function Transaction() {
     // const { data } = useGetTransactionQuery(undefined);
     // const dataSource = data?.data || [];
-    // console.log(data);
+    // (data);
 
     const columns = [
         {

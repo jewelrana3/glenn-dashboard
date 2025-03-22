@@ -6,11 +6,11 @@ import { BiUpload } from 'react-icons/bi';
 import Button from '../../../components/shared/Button';
 import { useProfileQuery, useUpdateProfileMutation } from '../../../redux/apiSlices/profileSlice';
 import { toast } from 'react-toastify';
+import { imageUrl } from '../../../redux/api/baseApi';
 
 interface formValues {
     name: string;
     email: string;
-    contactNumber: string;
     profile: string;
 }
 
@@ -18,7 +18,10 @@ export default function EditProfile() {
     const { data, refetch } = useProfileQuery(undefined);
     const navigate = useNavigate();
     const [updateProfile] = useUpdateProfileMutation();
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+    selectedImage;
 
     const [form] = Form.useForm();
 
@@ -28,20 +31,20 @@ export default function EditProfile() {
                 name: data.data.name,
                 email: data.data.email,
             });
-            setSelectedImage(data.data.profile || null);
+            setSelectedImage(data?.data?.profile || null);
         }
     }, [data, form]);
 
     const onFinish = async (values: formValues) => {
-        console.log(values);
         const formData = new FormData();
         formData.append('name', values.name);
         formData.append('email', values.email);
-        // formData.append('contactNumber', values.contactNumber);
 
         if (selectedImage) {
-            formData.append('profile', selectedImage);
+            formData.append('image', selectedImage);
         }
+
+        values;
 
         try {
             const res = await updateProfile(formData);
@@ -54,18 +57,19 @@ export default function EditProfile() {
                 toast.error('Profile update failed');
             }
         } catch (err) {
-            toast.error(`Profile update failed`);
+            toast.error('Profile update failed');
         }
     };
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-
+        //@ts-ignore
+        setSelectedImage(file);
         if (file) {
-            setSelectedImage(URL.createObjectURL(file));
+            setPreviewUrl(URL.createObjectURL(file));
         }
         form.setFieldsValue({
-            profile: file,
+            profile: file?.name,
         });
     };
 
@@ -81,7 +85,14 @@ export default function EditProfile() {
                 <div className="flex justify-between space-x-6 mt-12">
                     <div className="flex gap-4">
                         <div>
-                            <Avatar size={100} src={selectedImage || data?.data?.profile} />
+                            <Avatar
+                                size={100}
+                                src={
+                                    data?.data?.profile?.startsWith('http')
+                                        ? data?.data?.profile
+                                        : `${imageUrl}${data?.data?.profile}` || previewUrl
+                                }
+                            />
                         </div>
                         <div className="flex items-center gap-10">
                             <h3 className="font-semibold text-2xl">{data?.data?.name}</h3>

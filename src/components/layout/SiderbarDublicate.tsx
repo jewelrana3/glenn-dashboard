@@ -1,26 +1,26 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { IoSettingsOutline } from 'react-icons/io5';
-
 import category from '../../../public/sidebar-icon/category.svg';
 import about from '../../../public/sidebar-icon/about.svg';
 import privacy from '../../../public/sidebar-icon/privacy.svg';
 import terms from '../../../public/sidebar-icon/terms.svg';
 import dashboard from '../../../public/dashboard/dashboard.svg';
-// import visitor from '../../../public/dashboard/visitor.svg';
 import { CiLock, CiLogout } from 'react-icons/ci';
 import './SiderbarDublicate.css';
 import { MdKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md';
 import { RiContactsBook3Line } from 'react-icons/ri';
 import { BsBlockquoteLeft } from 'react-icons/bs';
 import { FcMoneyTransfer } from 'react-icons/fc';
+import logo from '../../../public/logo.svg';
+import { PiChartScatterThin } from 'react-icons/pi';
 
 const menuItems = [
     { label: 'Dashboard', path: '/', icon: <img src={dashboard} width={22} height={22} alt="dashboard" /> },
     // { label: 'Visitor', path: '/visitor', icon: <img src={visitor} alt="visitor" width={28} height={28} /> },
 
     { label: 'Category', path: '/category', icon: <img src={category} alt="category" width={22} height={22} /> },
-    // { label: 'Blog', path: '/blog', icon: <img src={category} alt="blog" width={22} height={22} /> },
+    { label: 'Business', path: '/business', icon: <PiChartScatterThin size={24} /> },
     { label: 'Blog', path: '/blog', icon: <BsBlockquoteLeft size={24} /> },
     {
         label: 'FAQ',
@@ -87,8 +87,8 @@ export default function SiderbarDublicate() {
     return (
         <div className="sidebar">
             <Link to="/">
-                <div className="text-[#757575] md:text-[70px] font-bold text-center">
-                    <h1>logo</h1>
+                <div className="flex justify-center items-center my-8">
+                    <img src={logo} alt="pic" className="h-10 xl:h-12" />
                 </div>
             </Link>
             <div className="navigation mt-10">

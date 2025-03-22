@@ -1,6 +1,6 @@
 import { api } from '../api/baseApi';
 
-// console.log(resetToken);
+// (resetToken);
 const authSlice = api.injectEndpoints({
     endpoints: (builder) => ({
         login: builder.mutation({
@@ -36,7 +36,7 @@ const authSlice = api.injectEndpoints({
         resetPasswod: builder.mutation({
             query: (value) => {
                 const resetToken = localStorage.getItem('resetToken');
-                console.log('Reset Token:', resetToken);
+
                 return {
                     method: 'POST',
                     url: '/auth/reset-password',

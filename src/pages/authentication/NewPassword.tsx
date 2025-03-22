@@ -5,7 +5,7 @@ import newPass from '../../../public/auth/new-pass.svg';
 import Button from '../../components/shared/Button';
 import { useResetPasswodMutation } from '../../redux/apiSlices/authSlice';
 import { useEffect } from 'react';
-import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
 
 const NewPassword = () => {
     const navigate = useNavigate();
@@ -14,30 +14,17 @@ const NewPassword = () => {
     useEffect(() => {
         if (isSuccess) {
             if (data) {
-                Swal.fire({
-                    text: data?.message,
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 1500,
-                }).then(() => {
-                    navigate('/login');
-                    window.location.reload();
-                });
+                toast.success('Password Update Successfull');
+                navigate('/login');
+                window.location.reload();
             } else {
-                Swal.fire({
-                    //@ts-ignore
-                    text: error?.data?.message,
-                    icon: 'error',
-                });
+                toast.error('Password is Failed');
             }
         }
     }, [isSuccess, error, data, isLoading, navigate]);
 
     const onFinish = async (values: { newPassword: string; confirmPassword: string }) => {
-        console.log(values);
-        await resetPassword(values).then((res) => {
-            console.log('resp', res);
-        });
+        await resetPassword(values);
     };
 
     return (

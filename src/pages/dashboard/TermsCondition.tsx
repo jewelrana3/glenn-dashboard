@@ -21,7 +21,7 @@ export default function TermsCondition() {
         }
     }, [data, content]);
 
-    // console.log(data);
+    // (data);
 
     const handleSubmit = async () => {
         const data = { content: content };

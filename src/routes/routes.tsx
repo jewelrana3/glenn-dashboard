@@ -20,17 +20,24 @@ import Faq from '../pages/dashboard/faq/Faq';
 import Blog from '../pages/dashboard/blog/Blog';
 import Contact from '../pages/dashboard/contact/Contact';
 import Transaction from '../pages/dashboard/transaction/Transaction';
+import PrivateRoute from './PrivateRoute';
+import Business from '../pages/dashboard/business/Business';
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <App />,
+        element: (
+            <PrivateRoute>
+                <App />
+            </PrivateRoute>
+        ),
         errorElement: <ErrorPage />,
         children: [
             { path: '/', element: <Dashboard /> },
             { path: '/agency', element: <Agency /> },
             { path: '/category', element: <Category /> },
             { path: '/blog', element: <Blog /> },
+            { path: '/business', element: <Business /> },
             { path: '/about-us', element: <AboutUs /> },
             { path: '/terms-condition', element: <TermsCondition /> },
             { path: '/policy', element: <PrivacyPolicy /> },
