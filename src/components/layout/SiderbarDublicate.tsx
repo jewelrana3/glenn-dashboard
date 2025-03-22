@@ -91,15 +91,15 @@ export default function SiderbarDublicate() {
                     <img src={logo} alt="pic" className="h-10 xl:h-12" />
                 </div>
             </Link>
-            <div className="navigation mt-10">
+            <div className="navigation ">
                 <ul className="menu ml-6">
                     {menuItems.map((item) => (
                         <li key={item.path} className={`menu-item ${getMenuItemClass(item.path)}`}>
                             <b></b>
                             <b></b>
                             <Link to={item.path} className="">
-                                <div className="flex justify-between items-center">
-                                    <div className="flex items-center">
+                                <div className="">
+                                    <div className="flex items-center ">
                                         <span className="icon ">{item.icon}</span>
                                         <span className=" text-[#333333] hidden md:block text-base">{item.label}</span>
                                     </div>
@@ -110,9 +110,9 @@ export default function SiderbarDublicate() {
                     ))}
 
                     {/* setting pages */}
-                    <li onClick={handleSetting} className={`menu-item  cursor-pointer`}>
+                    <li onClick={handleSetting} className={`menu-item-setting  cursor-pointer`}>
                         <div className="flex justify-between items-center">
-                            <div className="flex">
+                            <div className="flex gap-3">
                                 <span className="icon flex items-center">{<IoSettingsOutline size={24} />}</span>
                                 <span className=" text-[#333]">Settings</span>
                             </div>
@@ -128,7 +128,11 @@ export default function SiderbarDublicate() {
                                                 key={item.path}
                                                 className={`submenu-item  px-4 mb-2  ${getMenuItemClass(item.path)}`}
                                             >
-                                                <Link to={item.path} onClick={(e) => e.stopPropagation()}>
+                                                <Link
+                                                    to={item.path}
+                                                    onClick={(e) => e.stopPropagation()}
+                                                    className="flex items-center gap-3"
+                                                >
                                                     <span className="icon">{item.icon}</span>
                                                     <span className="title">{item.label}</span>
                                                 </Link>
@@ -140,9 +144,9 @@ export default function SiderbarDublicate() {
                         )}
                     </li>
 
-                    <li className={`menu-item cursor-pointer mt-[10%]`}>
+                    <li className={`cursor-pointer mt-[5%] flex items-center justify-center`}>
                         <div
-                            className="flex items-center justify-center gap-3 border border-gray-400 py-2 px-1 rounded-xl"
+                            className="flex items-center justify-center w-[80%] gap-3 border border-gray-400 py-2 px-1 rounded-xl"
                             onClick={handleLogout}
                         >
                             <CiLogout className="font-bold " size={23} />

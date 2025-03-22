@@ -10,9 +10,9 @@ const HeaderDashboard = () => {
                 <div className="flex items-center gap-2">
                     <div>
                         {/*notification icons */}
-                        <Link to={'/notification'}>
-                            <div className="size-10 flex items-center  justify-center border border-[#333333] h-11 w-11 rounded-full">
-                                <button className=" py-4 px-1 relative  rounded-full focus:outline-none transition duration-150 ease-in-out">
+                        <Link to={'/notification'} className="">
+                            <div className="size-10 flex items-center  justify-center">
+                                <button className=" py-4 px-1 relative  rounded-full ">
                                     <span className="absolute inset-0 -top-3  -mr-4 ">
                                         <div className="inline-flex items-center px-1 py-0. border-2 border-white rounded-full text-xs font-semibold leading-4  bg-[#FC6057]">
                                             6

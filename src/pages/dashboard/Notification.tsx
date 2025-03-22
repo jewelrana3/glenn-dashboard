@@ -30,7 +30,7 @@ const notifications = [
 
 const Notification = () => {
     return (
-        <div className="space-y-4">
+        <div className="space-y-4 mt-10">
             {notifications.map((notification) => (
                 <div key={notification.id} className="flex items-center p-4 ">
                     <div className="bg-[#FFAB3E66] p-2 rounded-xl">
