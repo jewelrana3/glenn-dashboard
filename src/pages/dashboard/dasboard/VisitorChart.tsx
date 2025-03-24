@@ -1,22 +1,16 @@
 import { ConfigProvider, Select } from 'antd';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
+import { useGetVisitorsQuery } from '../../../redux/apiSlices/dashboard/dashboardSlice';
 const { Option } = Select;
-const data = [
-    { name: 'Jan', visitor: 200 },
-    { name: 'Feb', visitor: 400 },
-    { name: 'Mar', visitor: 500 },
-    { name: 'Apr', visitor: 300 },
-    { name: 'May', visitor: 200 },
-    { name: 'Jun', visitor: 300 },
-    { name: 'Jul', visitor: 500 },
-    { name: 'Aug', visitor: 600 },
-    { name: 'Sep', visitor: 700 },
-    { name: 'Oct', visitor: 600 },
-    { name: 'Nov', visitor: 500 },
-    { name: 'Dec', visitor: 400 },
-];
 
 export default function VisitorChart() {
+    const { data: visitorData } = useGetVisitorsQuery(undefined);
+    console.log(visitorData);
+
+    const data = visitorData?.map((value: { month: string; total: number }) => ({
+        name: value?.month,
+        visitor: value?.total,
+    }));
     return (
         <div
             style={{
@@ -51,7 +45,7 @@ export default function VisitorChart() {
                 <LineChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
-                    <YAxis domain={[0, 800]} />
+                    <YAxis domain={[0, 300]} />
                     <Tooltip />
                     <Line
                         type="monotone"

@@ -1,9 +1,14 @@
 import { Layout } from 'antd';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import { Link } from 'react-router-dom';
+import { useProfileQuery } from '../../redux/apiSlices/profileSlice';
+import { imageUrl } from '../../redux/api/baseApi';
 
 const { Header } = Layout;
 const HeaderDashboard = () => {
+    const { data } = useProfileQuery(undefined);
+    const userData = data?.data;
+
     return (
         <Header className="w-full">
             <div className="flex items-center justify-end w-full -ml-5">
@@ -40,7 +45,11 @@ const HeaderDashboard = () => {
                             }}
                         >
                             <img
-                                src={'/user.svg'}
+                                src={
+                                    data.data.profile.startsWith('http')
+                                        ? userData?.profile
+                                        : `${imageUrl}${userData?.profile}`
+                                }
                                 style={{
                                     width: '44px',
                                     height: '44px',
@@ -56,7 +65,7 @@ const HeaderDashboard = () => {
                                     fontWeight: '600',
                                 }}
                             >
-                                Samuel Jacob
+                                {data.data.name}
                             </h2>
                         </Link>
                     </div>

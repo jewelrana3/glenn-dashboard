@@ -98,7 +98,7 @@ export default function SiderbarDublicate() {
                             <b></b>
                             <b></b>
                             <Link to={item.path} className="">
-                                <div className="">
+                                <div className="mt-1">
                                     <div className="flex items-center ">
                                         <span className="icon ">{item.icon}</span>
                                         <span className=" text-[#333333] hidden md:block text-base">{item.label}</span>

@@ -6,9 +6,17 @@ import {
 import { useEffect, useState } from 'react';
 
 export default function Business() {
-    const { data } = useGetBusinessListQuery(undefined);
+    const [input, setInput] = useState('');
+    const [status, setStatus] = useState('');
+    const { data } = useGetBusinessListQuery({ input, status });
+    console.log(input, status);
     const [updateBusiness] = useUpdateBusinessMutation();
     const [businessData, setBusinessData] = useState<any[]>([]);
+
+    const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setInput(value);
+    };
 
     const handleStatusChange = async (value: string, record: any) => {
         const data = {
@@ -99,6 +107,22 @@ export default function Business() {
 
     return (
         <div className="mt-10">
+            <div className="flex justify-end gap-5 pb-8">
+                <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    className="border border-black outline-none p-1 h-10 rounded-md"
+                    placeholder="Search"
+                />
+
+                <Select defaultValue={'Approved'} onChange={(value) => setStatus(value)} style={{ height: '40px' }}>
+                    <Select.Option value="Pending">Pending</Select.Option>
+                    <Select.Option value="Approved">Approved</Select.Option>
+                    <Select.Option value="Rejected">Rejected</Select.Option>
+                </Select>
+            </div>
+
             <Table dataSource={businessData} columns={columns} rowKey="_id" />
         </div>
     );

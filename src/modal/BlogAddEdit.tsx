@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Modal from './Modal';
 import 'react-toastify/dist/ReactToastify.css';
 import { IoMdClose } from 'react-icons/io';
 import { useAddBlogMutation, useEditBlogMutation } from '../redux/apiSlices/blogSlice';
 import { Form, Input } from 'antd';
 import { toast } from 'react-toastify';
+import { imageUrl } from '../redux/api/baseApi';
+import JoditEditor from 'jodit-react';
 
 //@ts-ignore
 const BlogAddEdit = ({ isOpen, onClose, refetch, edit, setEdit, setCreateModal }) => {
@@ -13,6 +15,8 @@ const BlogAddEdit = ({ isOpen, onClose, refetch, edit, setEdit, setCreateModal }
     const [editBlog] = useEditBlogMutation();
     const [selectFile, setSelectFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    const [content, setContent] = useState('');
+    const editor = useRef(null);
 
     useEffect(() => {
         if (edit?._id) {
@@ -21,6 +25,7 @@ const BlogAddEdit = ({ isOpen, onClose, refetch, edit, setEdit, setCreateModal }
                 content: edit?.content,
                 image: edit?.image,
             });
+            setPreviewUrl(edit?.image?.startsWith('https') ? edit?.image : `${imageUrl}${edit?.image}`);
         }
     }, [edit, form]);
 
@@ -90,15 +95,16 @@ const BlogAddEdit = ({ isOpen, onClose, refetch, edit, setEdit, setCreateModal }
                             type="text"
                             placeholder="Enter your title"
                             className="w-full border border-black h-12 rounded-lg px-4 focus:outline-none"
+                            maxLength={50}
                         />
                     </Form.Item>
 
                     <Form.Item label="Content" name={'content'}>
-                        <Input
-                            type="text"
-                            placeholder="Enter your title"
-                            className="w-full border border-black h-12 rounded-lg px-4 focus:outline-none"
-                            required
+                        <JoditEditor
+                            ref={editor}
+                            value={content}
+                            config={{ height: 50, theme: 'light', readonly: false }}
+                            onBlur={(newContent) => setContent(newContent)}
                         />
                     </Form.Item>
 
@@ -114,7 +120,7 @@ const BlogAddEdit = ({ isOpen, onClose, refetch, edit, setEdit, setCreateModal }
                             />
 
                             <div
-                                className="w-[450px] h-[100px] flex justify-center items-center cursor-pointer border border-gray-300"
+                                className="w-[450px] h-[180px] flex justify-center items-center cursor-pointer border border-gray-300"
                                 onClick={() => document.getElementById('file')?.click()}
                             >
                                 {previewUrl ? (

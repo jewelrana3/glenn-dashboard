@@ -1,22 +1,17 @@
 import { ConfigProvider, Select } from 'antd';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
+import { useGetUsersQuery } from '../../../redux/apiSlices/dashboard/dashboardSlice';
 const { Option } = Select;
-const data = [
-    { name: 'Jan', earnings: 200 },
-    { name: 'Feb', earnings: 200 },
-    { name: 'Mar', earnings: 100 },
-    { name: 'Apr', earnings: 100 },
-    { name: 'May', earnings: 200 },
-    { name: 'Jun', earnings: 300 },
-    { name: 'Jul', earnings: 500 },
-    { name: 'Aug', earnings: 600 },
-    { name: 'Sep', earnings: 700 },
-    { name: 'Oct', earnings: 800 },
-    { name: 'Nov', earnings: 600 },
-    { name: 'Dec', earnings: 500 },
-];
 
 export default function Chart() {
+    const { data: userData } = useGetUsersQuery(undefined);
+    console.log(userData);
+
+    const data = userData?.map((value: { month: string; customer: number; seller: number }) => ({
+        name: value?.month,
+        customer: value?.customer,
+        seller: value?.seller,
+    }));
     return (
         <div
             style={{
@@ -24,10 +19,10 @@ export default function Chart() {
                 flexDirection: 'column',
                 gap: 10,
             }}
-            className="p-4 bg-[#F8F8F8]"
+            className="p-4 bg-[#f8f8f8]"
         >
             <div className=" flex items-center justify-between">
-                <h1 className="text-2xl font-medium">Total Seller</h1>
+                <h1 className="text-2xl font-medium">Users Statics</h1>
                 <ConfigProvider
                     theme={{
                         components: {
@@ -51,14 +46,22 @@ export default function Chart() {
                 <LineChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
-                    <YAxis domain={[0, 800]} />
+                    <YAxis domain={[0, 300]} />
                     <Tooltip />
                     <Line
                         type="monotone"
-                        dataKey="earnings"
+                        dataKey="customer"
                         stroke="#3395FF"
                         strokeWidth={2}
                         dot={{ fill: '#3395FF', stroke: '#3395FF', strokeWidth: 2, r: 4 }}
+                    />
+
+                    <Line
+                        type="monotone"
+                        dataKey="seller"
+                        stroke="#f7cc7e"
+                        strokeWidth={2}
+                        dot={{ fill: '#3395FF', stroke: '#f7cc7e', strokeWidth: 2, r: 4 }}
                     />
                 </LineChart>
             </ResponsiveContainer>

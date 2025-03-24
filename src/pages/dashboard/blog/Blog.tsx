@@ -18,11 +18,13 @@ interface Blog {
 }
 
 export default function Blog() {
+    const [input, setInput] = useState('');
     const [createModal, setCreateModal] = useState(false);
-    const { data: allBlog, refetch } = useAllBlogDataQuery(undefined);
+    const { data: allBlog, refetch } = useAllBlogDataQuery(input);
     const [blogDelete] = useBlogDeleteMutation();
     const [edit, setEdit] = useState<Blog | null>(null);
     const [isOpen, setIsOpen] = useState<boolean>(false);
+
     const [collectData, setCollectData] = useState<{
         content: string;
     } | null>(null);
@@ -64,15 +66,20 @@ export default function Blog() {
             dataIndex: 'title',
             key: 'title',
             align: 'center' as 'center',
+            render: (_: any, record: { title: string }) => {
+                return <span>{record?.title}</span>;
+            },
         },
         {
             title: 'Content',
             dataIndex: 'content',
             key: 'content',
             align: 'center' as 'center',
-            render: (_: any, record: { content: string }) => {
-                return <span>{record?.content.slice(0, 20)}...</span>;
-            },
+            render: (_: any, record: { content: string }) => (
+                <div className="flex items-center">
+                    <div dangerouslySetInnerHTML={{ __html: record?.content.slice(0, 20) }} /> ..
+                </div>
+            ),
         },
         {
             title: 'Action',
@@ -107,10 +114,22 @@ export default function Blog() {
 
     return (
         <>
-            <div className="flex justify-end my-6 pr-5">
-                <Button className="text-base" onClick={() => setCreateModal(true)}>
-                    + Add Blog
-                </Button>
+            <div className="flex justify-end items-center gap-6">
+                <div className="flex justify-end">
+                    <input
+                        type="text"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        className="border border-black outline-none p-1 h-12 rounded-md"
+                        placeholder="Search"
+                    />
+                </div>
+
+                <div className="flex justify-end my-6 pr-5">
+                    <Button className="text-base" onClick={() => setCreateModal(true)}>
+                        + Add Blog
+                    </Button>
+                </div>
             </div>
             <Table dataSource={dataSource} columns={columns} pagination={{ pageSize: 10 }} rowKey="_id" />
 

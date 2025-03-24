@@ -3,10 +3,15 @@ import { api } from '../../api/baseApi';
 const businessSlice = api.injectEndpoints({
     endpoints: (builder) => ({
         getBusinessList: builder.query({
-            query: () => ({
-                url: '/business',
-                method: 'GET',
-            }),
+            query: ({ input, status }) => {
+                const params = new URLSearchParams();
+                if (input) params.append('searchTerm', input);
+                if (status) params.append('status', status);
+
+                return {
+                    url: `/business?${params.toString()}`,
+                };
+            },
             providesTags: ['Business'],
         }),
 

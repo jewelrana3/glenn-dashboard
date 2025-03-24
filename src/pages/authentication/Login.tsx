@@ -38,7 +38,6 @@ const Login = () => {
     }, [isSuccess, isError, error, data, navigate]);
 
     const onFinish = async (values: { email: string; password: string }) => {
-        'Received values of form: ', values;
         const data = {
             email: values.email,
             password: values.password,

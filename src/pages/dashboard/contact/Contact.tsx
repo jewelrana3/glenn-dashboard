@@ -5,7 +5,8 @@ import ContactDetailsModal from '../../../modal/ContactDetailsModal';
 import { useState } from 'react';
 
 export default function Contact() {
-    const { data } = useGetContactsQuery(undefined);
+    const [input, setInput] = useState('');
+    const { data } = useGetContactsQuery(input);
     const dataSource = data?.data || [];
     data;
 
@@ -67,7 +68,16 @@ export default function Contact() {
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
     return (
-        <div className="mt-16">
+        <div className="mt-10">
+            <div className="flex justify-end mb-4">
+                <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    className="border border-black outline-none p-1 h-12 rounded-md"
+                    placeholder="Search"
+                />
+            </div>
             <Table dataSource={dataSource} columns={columns} />
 
             {isOpen && (

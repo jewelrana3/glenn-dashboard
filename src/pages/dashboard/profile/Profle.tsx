@@ -13,8 +13,6 @@ export default function Profile() {
 
     const { data, isLoading, isError } = useProfileQuery(undefined);
 
-    data?.data?.role;
-
     useEffect(() => {
         if (data) {
             form.setFieldsValue({

@@ -46,6 +46,15 @@ const Category = () => {
             align: 'center' as 'center',
         },
         {
+            title: 'Total Business',
+            dataIndex: 'totalBusiness',
+            key: 'totalBusiness',
+            align: 'center' as 'center',
+            render: (_: any, record: Category & { totalBusiness?: number }) => (
+                <span>{record?.totalBusiness || 33}</span>
+            ),
+        },
+        {
             title: 'Action',
             key: 'action',
             align: 'center' as 'center',

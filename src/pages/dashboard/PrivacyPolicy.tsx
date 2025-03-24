@@ -13,8 +13,6 @@ export default function PrivacyPolicy() {
     const { data, refetch } = useGetPrivacyPolicyQuery(undefined);
     const [createPolicy] = useCreatePolicyMutation();
 
-    data;
-
     const [content, setContent] = useState('');
     const handleSubmit = async () => {
         const data = { content: content };
