@@ -106,14 +106,17 @@ export default function Transaction() {
     return (
         <>
             <div className="mt-5">
-                <div className="flex justify-end mb-4">
-                    <input
-                        type="text"
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        className="border border-black outline-none p-1 h-12 rounded-md"
-                        placeholder="Search"
-                    />
+                <div className="flex items-center  justify-between">
+                    <div className="text-xl">Transaction</div>
+                    <div className="flex justify-end mb-4">
+                        <input
+                            type="text"
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            className="border border-black outline-none p-1 h-12 rounded-md"
+                            placeholder="Search"
+                        />
+                    </div>
                 </div>
                 <Table dataSource={dataSource} columns={columns} />
 

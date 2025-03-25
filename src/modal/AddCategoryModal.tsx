@@ -84,7 +84,7 @@ const AddCategoryModal = ({ isOpen, onClose, refetch, editCategory, setEditCateg
                                 value={formData.name}
                                 onChange={handleChange}
                                 placeholder="Enter category name"
-                                className="w-full border border-black h-12 rounded-lg px-4 focus:outline-none"
+                                className="w-full border border-gray-200 h-12 rounded-lg px-4 focus:outline-none"
                             />
                         </div>
                     </div>

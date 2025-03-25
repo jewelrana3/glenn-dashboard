@@ -16,7 +16,7 @@ export default function ContactDetailsModal({ isOpen, onClose, collectData }: Co
                     </button>
                 </div>
                 <h1 className="text-xl mb-6">Contact Message</h1>
-                <p className="border border-black p-3 rounded-md">{collectData?.message}</p>
+                <p className="border border-gray-200 p-3 rounded-md">{collectData?.message}</p>
             </div>
         </Modal>
     );

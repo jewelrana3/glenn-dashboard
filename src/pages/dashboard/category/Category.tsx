@@ -4,8 +4,8 @@ import AddCategoryModal from '../../../modal/AddCategoryModal';
 import { Table, Space } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useDeleteCategoryMutation, useGetAllCategoryQuery } from '../../../redux/apiSlices/categorySlice';
-import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Swal from 'sweetalert2';
 
 interface Category {
     _id: string;
@@ -19,15 +19,34 @@ const Category = () => {
     const [deleteCategory] = useDeleteCategoryMutation();
 
     const dataSource: Category[] = allCategory?.data || [];
+    console.log(dataSource);
 
     const handleDelete = async (category: Category) => {
-        try {
-            await deleteCategory(category._id);
-            toast.success('Category deleted successfully!');
-            refetch();
-        } catch (error) {
-            console.error(error);
-            toast.error('Error deleting category!');
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to category this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+        });
+        if (result.isConfirmed) {
+            try {
+                await deleteCategory(category?._id);
+                Swal.fire({
+                    title: 'Deleted',
+                    text: 'Your category has been deleted',
+                    icon: 'success',
+                });
+                refetch();
+            } catch (error) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'There was an error deleting the category.',
+                    icon: 'error',
+                });
+            }
         }
     };
 
@@ -50,9 +69,7 @@ const Category = () => {
             dataIndex: 'totalBusiness',
             key: 'totalBusiness',
             align: 'center' as 'center',
-            render: (_: any, record: Category & { totalBusiness?: number }) => (
-                <span>{record?.totalBusiness || 33}</span>
-            ),
+            render: (_: any, record: { totalBusiness?: number }) => <span>{record?.totalBusiness}</span>,
         },
         {
             title: 'Action',
@@ -80,19 +97,19 @@ const Category = () => {
 
     return (
         <>
-            <div className="flex justify-end my-6 pr-5" onClick={() => setCreateModal(true)}>
-                <Button className="text-base">+ Add Category</Button>
+            <div className="flex items-center justify-between mb-4 mt-5">
+                <div className="text-xl">Category</div>
+                <div className="flex justify-end " onClick={() => setCreateModal(true)}>
+                    <Button className="text-base">+ Add Category</Button>
+                </div>
             </div>
-
-            {/* Table displaying categories */}
             <Table
                 dataSource={dataSource}
+                //@ts-ignore
                 columns={columns}
-                pagination={{ pageSize: 10 }} // Add pagination for better UX
-                rowKey="_id" // Using _id as the row key
+                pagination={{ pageSize: 10 }}
+                rowKey="_id"
             />
-
-            <ToastContainer position="top-right" />
 
             {/* Add or Edit Category Modal */}
             {createModal && (
@@ -103,7 +120,7 @@ const Category = () => {
                     setEditCategory={setEditCategory}
                     onClose={() => {
                         setCreateModal(false);
-                        setEditCategory(null); // Reset the edit category on modal close
+                        setEditCategory(null);
                     }}
                 />
             )}

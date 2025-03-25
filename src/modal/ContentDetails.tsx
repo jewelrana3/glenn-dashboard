@@ -17,7 +17,10 @@ export default function ContentDetails({ isOpen, onClose, collectData }: Content
                     </button>
                 </div>
                 <h1 className="text-xl mb-6">Blog Content</h1>
-                <p className="border border-black p-3 rounded-md">{collectData?.content}</p>
+                <div
+                    dangerouslySetInnerHTML={{ __html: collectData?.content }}
+                    className="border border-gray-200 p-3 rounded-md"
+                />
             </div>
         </Modal>
     );

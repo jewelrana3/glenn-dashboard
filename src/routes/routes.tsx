@@ -10,7 +10,6 @@ import Dashboard from '../pages/dashboard/dasboard/Dashboard';
 import PrivacyPolicy from '../pages/dashboard/PrivacyPolicy';
 import EditProfile from '../pages/dashboard/profile/EditProfile';
 import ChangePassword from '../pages/dashboard/profile/ChangePassword';
-import Agency from '../pages/dashboard/agency/Agency';
 import Profile from '../pages/dashboard/profile/Profle';
 import SignUp from '../pages/authentication/SignUp';
 import Category from '../pages/dashboard/category/Category';
@@ -34,7 +33,6 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             { path: '/', element: <Dashboard /> },
-            { path: '/agency', element: <Agency /> },
             { path: '/category', element: <Category /> },
             { path: '/blog', element: <Blog /> },
             { path: '/business', element: <Business /> },

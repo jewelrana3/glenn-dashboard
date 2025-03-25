@@ -1,5 +1,7 @@
 import card from '../../../../public/dashboard/card.svg';
 import user from '../../../../public/dashboard/user.svg';
+import seller from '../../../../public/dashboard/seller.svg';
+import revenue from '../../../../public/dashboard/revenue.svg';
 import { useGetAdminQuery } from '../../../redux/apiSlices/dashboard/dashboardSlice';
 
 const EventStates = () => {
@@ -12,7 +14,7 @@ const EventStates = () => {
             count: data?.data?.totalSeller,
 
             textColor: '#FBB040',
-            image: user,
+            image: seller,
             alt: 'earing',
         },
         {
@@ -36,7 +38,7 @@ const EventStates = () => {
             count: `$ ${data?.data?.TotalRevenue}`,
 
             bgColor: '#FDF6EC',
-            image: card,
+            image: revenue,
             alt: 'user',
         },
     ];

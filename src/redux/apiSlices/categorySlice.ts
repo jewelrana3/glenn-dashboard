@@ -16,7 +16,7 @@ const categorySlice = api.injectEndpoints({
             query: () => {
                 return {
                     method: 'GET',
-                    url: '/category',
+                    url: '/category/admin-category',
                 };
             },
         }),

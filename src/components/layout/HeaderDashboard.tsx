@@ -7,7 +7,9 @@ import { imageUrl } from '../../redux/api/baseApi';
 const { Header } = Layout;
 const HeaderDashboard = () => {
     const { data } = useProfileQuery(undefined);
+
     const userData = data?.data;
+    console.log(userData);
 
     return (
         <Header className="w-full">
@@ -19,9 +21,7 @@ const HeaderDashboard = () => {
                             <div className="size-10 flex items-center  justify-center">
                                 <button className=" py-4 px-1 relative  rounded-full ">
                                     <span className="absolute inset-0 -top-3  -mr-4 ">
-                                        <div className="inline-flex items-center px-1 py-0. border-2 border-white rounded-full text-xs font-semibold leading-4  bg-[#FC6057]">
-                                            6
-                                        </div>
+                                        <div className="inline-flex items-center px-1 py-0. border-2 border-white rounded-full text-xs font-semibold leading-4  bg-[#FC6057]"></div>
                                     </span>
 
                                     <IoMdNotificationsOutline size={24} />

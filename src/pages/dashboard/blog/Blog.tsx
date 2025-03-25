@@ -8,6 +8,7 @@ import BlogAddEdit from '../../../modal/BlogAddEdit';
 import { imageUrl } from '../../../redux/api/baseApi';
 import { IoEyeOutline } from 'react-icons/io5';
 import ContentDetails from '../../../modal/ContentDetails';
+import Swal from 'sweetalert2';
 
 // Define types for Blog data
 interface Blog {
@@ -33,12 +34,30 @@ export default function Blog() {
     dataSource;
 
     const handleDelete = async (blog: Blog) => {
-        try {
-            await blogDelete(blog?._id);
-            toast.success('Blog item deleted successfully!');
-            refetch();
-        } catch (err) {
-            toast.error('Error deleting blog!');
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to blog this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+        });
+        if (result.isConfirmed) {
+            try {
+                await blogDelete(blog?._id);
+                Swal.fire({
+                    title: 'Deleted',
+                    text: 'Your blog has been deleted',
+                    icon: 'success',
+                });
+            } catch (error) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'There was an error deleting the blog.',
+                    icon: 'error',
+                });
+            }
         }
     };
 
@@ -74,7 +93,7 @@ export default function Blog() {
             title: 'Content',
             dataIndex: 'content',
             key: 'content',
-            align: 'center' as 'center',
+
             render: (_: any, record: { content: string }) => (
                 <div className="flex items-center">
                     <div dangerouslySetInnerHTML={{ __html: record?.content.slice(0, 20) }} /> ..
@@ -114,21 +133,24 @@ export default function Blog() {
 
     return (
         <>
-            <div className="flex justify-end items-center gap-6">
-                <div className="flex justify-end">
-                    <input
-                        type="text"
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        className="border border-black outline-none p-1 h-12 rounded-md"
-                        placeholder="Search"
-                    />
-                </div>
+            <div className="flex items-center  justify-between mb-4">
+                <div className="text-xl">Blog</div>
+                <div className="flex justify-end items-center gap-6">
+                    <div className="flex justify-end">
+                        <input
+                            type="text"
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            className="border border-black outline-none p-1 h-12 rounded-md"
+                            placeholder="Search"
+                        />
+                    </div>
 
-                <div className="flex justify-end my-6 pr-5">
-                    <Button className="text-base" onClick={() => setCreateModal(true)}>
-                        + Add Blog
-                    </Button>
+                    <div className="flex justify-end">
+                        <Button className="text-base" onClick={() => setCreateModal(true)}>
+                            + Add Blog
+                        </Button>
+                    </div>
                 </div>
             </div>
             <Table dataSource={dataSource} columns={columns} pagination={{ pageSize: 10 }} rowKey="_id" />

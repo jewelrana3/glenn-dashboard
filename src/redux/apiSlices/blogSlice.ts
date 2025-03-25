@@ -4,6 +4,7 @@ const blogSlice = api.injectEndpoints({
         AllBlogData: builder.query({
             query: (input) => {
                 const params = new URLSearchParams();
+
                 if (input) params.append('searchTerm', input);
                 return {
                     method: 'GET',
@@ -24,7 +25,6 @@ const blogSlice = api.injectEndpoints({
 
         editBlog: builder.mutation({
             query: ({ _id, formData }) => {
-                _id;
                 return {
                     url: `/blog/${_id}`,
                     method: 'PATCH',
