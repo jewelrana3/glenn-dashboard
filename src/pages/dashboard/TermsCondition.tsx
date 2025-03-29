@@ -69,7 +69,7 @@ export default function TermsCondition() {
                     />
                 </div>
 
-                <Button onClick={handleSubmit} className="mt-5">
+                <Button onClick={handleSubmit} className="mt-5 w-36">
                     Save
                 </Button>
             </div>

@@ -10,7 +10,7 @@ export default function Button({ children, className, onClick, htmlType = 'butto
         <button
             type={htmlType}
             onClick={onClick} // Passing the onClick handler here
-            className={`${className} font-semibold text-center my-auto cursor-pointer bg-bgYellow w-[200px] h-[50px] rounded-xl text-base font-poppins`}
+            className={`${className} font-semibold text-center my-auto  text-white cursor-pointer bg-bgYellow  h-[50px] rounded-xl text-base font-poppins`}
         >
             {children}
         </button>

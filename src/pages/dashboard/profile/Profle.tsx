@@ -63,7 +63,7 @@ export default function Profile() {
                     </div>
                     <div className="">
                         <Link to="/edit-profile">
-                            <CustomButton className=" flex items-center justify-center space-x-2 cursor-pointer">
+                            <CustomButton className=" flex items-center justify-center space-x-2 cursor-pointer w-36">
                                 <MdOutlineModeEdit className="text-xl mr-2" /> {/* This adds the icon */}
                                 Edit Profile
                             </CustomButton>

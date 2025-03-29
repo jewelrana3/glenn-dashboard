@@ -9,7 +9,7 @@ export default function Business() {
     const [input, setInput] = useState('');
     const [status, setStatus] = useState('');
     const { data } = useGetBusinessListQuery({ input, status });
-    console.log(input, status);
+
     const [updateBusiness] = useUpdateBusinessMutation();
     const [businessData, setBusinessData] = useState<any[]>([]);
 

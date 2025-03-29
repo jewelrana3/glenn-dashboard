@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Button from '../../../components/shared/Button';
 import { Space, Table } from 'antd';
-import { toast } from 'react-toastify';
 import { useAllBlogDataQuery, useBlogDeleteMutation } from '../../../redux/apiSlices/blogSlice';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import BlogAddEdit from '../../../modal/BlogAddEdit';
@@ -133,7 +132,7 @@ export default function Blog() {
 
     return (
         <>
-            <div className="flex items-center  justify-between mb-4">
+            <div className="flex items-center  justify-between mb-4 mt-10">
                 <div className="text-xl">Blog</div>
                 <div className="flex justify-end items-center gap-6">
                     <div className="flex justify-end">
@@ -147,7 +146,7 @@ export default function Blog() {
                     </div>
 
                     <div className="flex justify-end">
-                        <Button className="text-base" onClick={() => setCreateModal(true)}>
+                        <Button className="text-base w-[140px]" onClick={() => setCreateModal(true)}>
                             + Add Blog
                         </Button>
                     </div>

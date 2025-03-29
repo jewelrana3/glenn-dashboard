@@ -60,7 +60,7 @@ export default function AboutUs() {
                         onBlur={(newContent) => setContent(newContent)}
                     />
                 </div>
-                <Button className="mt-5" onClick={handleSubmit}>
+                <Button className="mt-5 w-36" onClick={handleSubmit}>
                     Save
                 </Button>
             </div>

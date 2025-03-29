@@ -99,7 +99,7 @@ export default function ChangePassword() {
                                         },
                                     }}
                                 >
-                                    <Button className="w-[30%] font-semibold text-[20px] rounded-md" htmlType="submit">
+                                    <Button className="w-[20%] font-semibold text-[20px] rounded-md " htmlType="submit">
                                         Submit
                                     </Button>
                                 </ConfigProvider>

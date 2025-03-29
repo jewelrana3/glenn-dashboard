@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 export default function PrivacyPolicy() {
     const editor = useRef(null);
     const navigate = useNavigate();
-    const { data, refetch } = useGetPrivacyPolicyQuery(undefined);
+    const { refetch } = useGetPrivacyPolicyQuery(undefined);
     const [createPolicy] = useCreatePolicyMutation();
 
     const [content, setContent] = useState('');
@@ -56,7 +56,7 @@ export default function PrivacyPolicy() {
                         onBlur={(newContent) => setContent(newContent)}
                     />
                 </div>
-                <Button className="mt-5" htmlType="submit" onClick={handleSubmit}>
+                <Button className="mt-5 w-36" htmlType="submit" onClick={handleSubmit}>
                     Save
                 </Button>
             </div>

@@ -100,7 +100,7 @@ const Category = () => {
             <div className="flex items-center justify-between mb-4 mt-5">
                 <div className="text-xl">Category</div>
                 <div className="flex justify-end " onClick={() => setCreateModal(true)}>
-                    <Button className="text-base">+ Add Category</Button>
+                    <Button className="text-base w-[170px]">+ Add Category</Button>
                 </div>
             </div>
             <Table
