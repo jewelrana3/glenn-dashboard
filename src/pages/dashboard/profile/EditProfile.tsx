@@ -129,6 +129,7 @@ export default function EditProfile() {
                                     <Input
                                         className="h-14 bg-inputBg hover:bg-inputBg focus:bg-inputBg rounded-xl border-none"
                                         placeholder="Enter your email"
+                                        readOnly
                                     />
                                 </Form.Item>
                             </div>

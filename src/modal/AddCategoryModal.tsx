@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Modal from './Modal';
 import { useCreateCategoryMutation, useEditCategoryMutation } from '../redux/apiSlices/categorySlice';
 import { toast } from 'react-toastify';
-import { IoMdClose } from 'react-icons/io';
 
 interface FormData {
     name: string;
@@ -54,22 +53,17 @@ const AddCategoryModal = ({ isOpen, onClose, refetch, editCategory, setEditCateg
             }
             refetch();
             onClose();
-            setEditCategory(null); // Clear edit state after submission
-            setFormData({ name: '' }); // Reset form data
+            setEditCategory(null);
+            setFormData({ name: '' });
         } catch (error) {
             toast.error('Something went wrong. Please try again.');
         }
     };
 
     return (
-        <Modal isOpen={isOpen}>
+        <Modal isOpen={isOpen} onClose={onClose}>
             <div className="p-6 rounded-lg shadow-lg w-[500px]">
-                <div className="flex justify-end">
-                    <button onClick={onClose}>
-                        <IoMdClose size={24} />
-                    </button>
-                </div>
-                <h2 className="text-xl font-semibold mb-4">{editCategory ? 'Edit Category' : 'Add New Category'}</h2>
+                <h2 className="text-xl font-medium mb-4">{editCategory ? 'Edit Category' : 'Add New Category'}</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Category Name */}
                     <div className="gap-4">

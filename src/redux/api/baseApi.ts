@@ -8,8 +8,7 @@ export const api = createApi({
         baseUrl: 'http://148.66.158.106:5000/api/v1',
         prepareHeaders: (headers) => {
             const token = localStorage.getItem('accressToken') || sessionStorage.getItem('accressToken');
-            // localStorage.getItem('resetToken');
-            // const resetToken = localStorage.getItem('resetToken');
+
             if (token) {
                 headers.set('Authorization', ` Bearer ${token}`);
             }
