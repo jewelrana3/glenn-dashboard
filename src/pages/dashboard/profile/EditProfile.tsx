@@ -31,7 +31,9 @@ export default function EditProfile() {
                 name: data.data.name,
                 email: data.data.email,
             });
-            setSelectedImage(data?.data?.profile || null);
+            setPreviewUrl(
+                data?.data?.profile?.startsWith('http') ? data?.data?.profile : `${imageUrl}${data?.data?.profile}`,
+            );
         }
     }, [data, form]);
 
@@ -85,14 +87,7 @@ export default function EditProfile() {
                 <div className="flex justify-between space-x-6 mt-12">
                     <div className="flex gap-4">
                         <div>
-                            <Avatar
-                                size={100}
-                                src={
-                                    data?.data?.profile?.startsWith('http')
-                                        ? data?.data?.profile
-                                        : `${imageUrl}${data?.data?.profile}` || previewUrl
-                                }
-                            />
+                            <Avatar size={100} src={previewUrl} />
                         </div>
                         <div className="flex items-center gap-10">
                             <h3 className="font-semibold text-2xl">{data?.data?.name}</h3>

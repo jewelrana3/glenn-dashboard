@@ -5,7 +5,7 @@ import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const api = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://10.0.80.75:6006/api/v1',
+        baseUrl: 'http://148.66.158.106:5000/api/v1',
         prepareHeaders: (headers) => {
             const token = localStorage.getItem('accressToken') || sessionStorage.getItem('accressToken');
             // localStorage.getItem('resetToken');
@@ -20,4 +20,4 @@ export const api = createApi({
     endpoints: () => ({}),
 });
 
-export const imageUrl = 'http://10.0.80.75:6006';
+export const imageUrl = 'http://148.66.158.106:5000';

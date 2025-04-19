@@ -5,7 +5,6 @@ const { Option } = Select;
 
 export default function VisitorChart() {
     const { data: visitorData } = useGetVisitorsQuery(undefined);
-    console.log(visitorData);
 
     const data = visitorData?.map((value: { month: string; total: number }) => ({
         name: value?.month,

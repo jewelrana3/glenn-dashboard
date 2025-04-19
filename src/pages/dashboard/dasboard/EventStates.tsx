@@ -6,7 +6,6 @@ import { useGetAdminQuery } from '../../../redux/apiSlices/dashboard/dashboardSl
 
 const EventStates = () => {
     const { data } = useGetAdminQuery(undefined);
-    console.log(data);
 
     const datas = [
         {

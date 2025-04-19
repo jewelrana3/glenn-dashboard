@@ -3,7 +3,6 @@ import { useRef, useState, useEffect } from 'react';
 import JoditEditor from 'jodit-react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/shared/Button';
-import Swal from 'sweetalert2';
 import { useCreateTermsConditionMutation, useGetTermsConditionQuery } from '../../redux/apiSlices/termsConditionSlice';
 
 export default function TermsCondition() {
@@ -12,40 +11,18 @@ export default function TermsCondition() {
     const { data, refetch, isLoading } = useGetTermsConditionQuery(undefined);
     const [createTermsCondition] = useCreateTermsConditionMutation();
 
-    // Initial content can be set to existing terms if available
-    const [content, setContent] = useState<string>(data?.content || '');
+    const [content, setContent] = useState('');
 
     useEffect(() => {
-        if (data && !content) {
-            setContent(data.content); // Update state if data arrives
+        if (data?.data?.content) {
+            setContent(data?.data?.content);
         }
-    }, [data, content]);
-
-    // (data);
+    }, [data]);
 
     const handleSubmit = async () => {
         const data = { content: content };
-
-        const res = await createTermsCondition(data);
-        if (res?.data?.success) {
-            Swal.fire({
-                text: res?.data?.message,
-                icon: 'success',
-                showConfirmButton: false,
-                timer: 1500,
-            }).then(() => {
-                refetch();
-            });
-        } else {
-            Swal.fire({
-                title: 'Oops',
-                // @ts-ignore
-                text: res?.error?.data?.message || 'Something went wrong',
-                icon: 'error',
-                timer: 1500,
-                showConfirmButton: false,
-            });
-        }
+        await createTermsCondition(data);
+        refetch();
     };
 
     if (isLoading) return <div>Loading...</div>;

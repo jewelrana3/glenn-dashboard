@@ -5,7 +5,6 @@ const { Option } = Select;
 
 export default function Chart() {
     const { data: userData } = useGetUsersQuery(undefined);
-    console.log(userData);
 
     const data = userData?.map((value: { month: string; customer: number; seller: number }) => ({
         name: value?.month,

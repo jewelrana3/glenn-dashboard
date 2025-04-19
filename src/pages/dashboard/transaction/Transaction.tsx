@@ -54,7 +54,6 @@ export default function Transaction() {
     const [input, setInput] = useState('');
     const { data } = useGetTransactionQuery(input);
     const dataSource = data?.data || [];
-    console.log(dataSource);
 
     const columns = [
         {

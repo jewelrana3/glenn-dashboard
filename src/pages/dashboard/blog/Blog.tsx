@@ -18,10 +18,11 @@ interface Blog {
 }
 
 export default function Blog() {
+    const { data: allBlog, refetch, isLoading, isError } = useAllBlogDataQuery(undefined);
+    const [blogDelete] = useBlogDeleteMutation();
     const [input, setInput] = useState('');
     const [createModal, setCreateModal] = useState(false);
-    const { data: allBlog, refetch } = useAllBlogDataQuery(input);
-    const [blogDelete] = useBlogDeleteMutation();
+
     const [edit, setEdit] = useState<Blog | null>(null);
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -59,6 +60,13 @@ export default function Blog() {
             }
         }
     };
+
+    if (isLoading) {
+        return <span>Loading ....</span>;
+    }
+    if (isError) {
+        return <span>data not found ....</span>;
+    }
 
     const columns = [
         {

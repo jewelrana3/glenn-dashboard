@@ -18,9 +18,10 @@ export default function ChangePassword() {
     };
 
     return (
-        <>
-            <div className="flex items-center justify-center mt-[10%]">
-                <div className="w-full lg:w-2/3  rounded-xl px-7  pb-5 ">
+        <div className="flex flex-col mt-[6%]">
+            <h1 className="text-2xl text-start ml-[16%] font-semibold">Change Password</h1>
+            <div className="flex items-center justify-center mt-10">
+                <div className="w-full lg:w-2/3  rounded-xl  pb-5 ">
                     <ConfigProvider
                         theme={{
                             components: {},
@@ -68,7 +69,7 @@ export default function ChangePassword() {
                                 />
                             </Form.Item>
 
-                            <span className=" text-[20px] font-semibold ">Re-enter new Password</span>
+                            <span className=" text-[20px] font-semibold ">Confirm Password</span>
                             <Form.Item
                                 name="confirmPassword"
                                 className="text-black"
@@ -108,6 +109,6 @@ export default function ChangePassword() {
                     </ConfigProvider>
                 </div>
             </div>
-        </>
+        </div>
     );
 }

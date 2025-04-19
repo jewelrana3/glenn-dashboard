@@ -19,7 +19,6 @@ const Category = () => {
     const [deleteCategory] = useDeleteCategoryMutation();
 
     const dataSource: Category[] = allCategory?.data || [];
-    console.log(dataSource);
 
     const handleDelete = async (category: Category) => {
         const result = await Swal.fire({

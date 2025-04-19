@@ -50,10 +50,7 @@ const NewPassword = () => {
                 },
             }}
         >
-            <div
-                className="
-            flex items-center justify-center h-screen"
-            >
+            <div className="flex items-center justify-center h-screen">
                 <div className="px-5">
                     <img src={newPass} width={460} height={460} alt="forgot" />
                 </div>

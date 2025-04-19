@@ -1,46 +1,55 @@
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import JoditEditor from 'jodit-react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/shared/Button';
-
-import Swal from 'sweetalert2';
 import { useCreateAboutMutation, useGetAboutQuery } from '../../redux/apiSlices/aboutSlice';
 
 export default function AboutUs() {
     const editor = useRef(null);
     const navigate = useNavigate();
-    const { data, refetch } = useGetAboutQuery(undefined);
+    const { data, refetch, isError, isLoading } = useGetAboutQuery(undefined);
     const [createAbout] = useCreateAboutMutation();
-    data;
-
     const [content, setContent] = useState('');
+
+    useEffect(() => {
+        if (data?.data?.content) {
+            setContent(data?.data?.content);
+        }
+    }, [data]);
 
     const handleSubmit = async () => {
         const data = { content: content };
-
-        const res = await createAbout(data);
-        if (res?.data?.success) {
-            Swal.fire({
-                text: res?.data?.message,
-                icon: 'success',
-                showConfirmButton: false,
-                timer: 1500,
-            }).then(() => {
-                refetch();
-            });
-        } else {
-            Swal.fire({
-                title: 'Opps',
-                // @ts-ignore
-                text: res?.error?.data?.message,
-                icon: 'error',
-                timer: 1500,
-                showConfirmButton: false,
-            });
-        }
+        await createAbout(data);
+        refetch();
+        // if (res?.data?.success) {
+        //     Swal.fire({
+        //         text: res?.data?.message,
+        //         icon: 'success',
+        //         showConfirmButton: false,
+        //         timer: 1500,
+        //     }).then(() => {
+        //         refetch();
+        //     });
+        // } else {
+        //     Swal.fire({
+        //         title: 'Opps',
+        //         // @ts-ignore
+        //         text: res?.error?.data?.message,
+        //         icon: 'error',
+        //         timer: 1500,
+        //         showConfirmButton: false,
+        //     });
+        // }
     };
+
+    if (isLoading) {
+        return <span>Loading ....</span>;
+    }
+    if (isError) {
+        return <span>data not found ....</span>;
+    }
 
     return (
         <div>
