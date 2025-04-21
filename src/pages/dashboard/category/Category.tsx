@@ -102,6 +102,9 @@ const Category = () => {
                     <Button className="text-base w-[170px]">+ Add Category</Button>
                 </div>
             </div>
+
+            {/* fdgdfg */}
+
             <Table
                 dataSource={dataSource}
                 //@ts-ignore
