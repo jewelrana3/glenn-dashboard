@@ -1,0 +1,127 @@
+/* .navigation-item {
+    position: relative;
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.navigation-item b:nth-child(1) {
+    position: absolute;
+    top: -20px;
+    height: 20px;
+    width: 100%;
+    background: #fffefe;
+    display: none;
+}
+
+.navigation-item b:nth-child(1)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #fff7ec;
+    border-bottom-right-radius: 300px;
+}
+
+.navigation-item b:nth-child(2) {
+    position: absolute;
+    bottom: -20px;
+    height: 20px;
+    width: 100%;
+    background: #fff;
+    display: none;
+}
+
+.navigation-item b:nth-child(2)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #fff7ec;
+    border-top-right-radius: 200px;
+}
+
+
+.navigation-item.active b:nth-child(1),
+.navigation-item.active b:nth-child(2) {
+    display: block;
+}
+
+
+.navigation-item.active {
+    background-color: #ffff;
+    color: black;
+    font-weight: 500;
+} */
+
+/* Sidebar list items */
+.navigation-item {
+    position: relative;
+    width: 100%;
+    margin: 10px 0;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    overflow: visible; /* Important: allow b elements to show without hiding text */
+}
+
+/* Top curve */
+.navigation-item b:nth-child(1) {
+    position: absolute;
+    top: -20px;
+    height: 20px;
+    width: 100%;
+    background: #fffefe;
+    display: none;
+    z-index: 1; /* Make sure curve stays below text */
+}
+
+.navigation-item b:nth-child(1)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #fff7ec;
+    border-bottom-right-radius: 300px;
+}
+
+/* Bottom curve */
+.navigation-item b:nth-child(2) {
+    position: absolute;
+    bottom: -20px;
+    height: 20px;
+    width: 100%;
+    background: #fff;
+    display: none;
+    z-index: 1;
+}
+
+.navigation-item b:nth-child(2)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #fff7ec;
+    border-top-right-radius: 200px;
+}
+
+/* Show b only when active */
+.navigation-item.active b:nth-child(1),
+.navigation-item.active b:nth-child(2) {
+    display: block;
+}
+
+/* Active state */
+.navigation-item.active {
+    background-color: #ffffff;
+    color: black;
+    font-weight: 500;
+    z-index: 2; /* Ensure active item is above */
+}

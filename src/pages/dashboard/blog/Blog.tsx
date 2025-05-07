@@ -22,7 +22,6 @@ export default function Blog() {
     const [blogDelete] = useBlogDeleteMutation();
     const [input, setInput] = useState('');
     const [createModal, setCreateModal] = useState(false);
-
     const [edit, setEdit] = useState<Blog | null>(null);
     const [isOpen, setIsOpen] = useState<boolean>(false);
 

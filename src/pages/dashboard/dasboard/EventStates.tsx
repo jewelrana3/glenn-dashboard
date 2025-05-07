@@ -43,7 +43,7 @@ const EventStates = () => {
     ];
     return (
         <div>
-            <div className="grid lg:grid-cols-4 gap-9 my-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-9 my-4">
                 {datas.map((item) => (
                     <div key={item.name} className="bg-bgHeader rounded-md p-4  w-full shadow-sm ">
                         <div className="flex  items-center gap-3 px-4">
@@ -51,7 +51,7 @@ const EventStates = () => {
                                 <img src={item.image} width={80} height={80} alt={item.alt} />
                             </div>
                             <div className=" flex flex-col gap-1 ">
-                                <p className="text-2xl font-medium text-textGray">{item.name}</p>
+                                <p className="text-[20px] text-nowrap font-medium text-textGray">{item.name}</p>
 
                                 <p className="text-2xl font-semibold text-textYellow ml-1">{item.count}</p>
                             </div>
