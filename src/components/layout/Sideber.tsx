@@ -7,20 +7,16 @@ import privacy from '../../../public/sidebar-icon/privacy.svg';
 import terms from '../../../public/sidebar-icon/terms.svg';
 import dashboard from '../../../public/dashboard/dashboard.svg';
 import { CiLock, CiSettings } from 'react-icons/ci';
-// import './SiderbarDublicate.css';
-import './Sideber.css';
 import { MdKeyboardArrowUp, MdLogout, MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import { RiContactsBook3Line } from 'react-icons/ri';
 import { BsBlockquoteLeft } from 'react-icons/bs';
 import { FcMoneyTransfer } from 'react-icons/fc';
 import logo from '../../../public/logo.svg';
 import { PiChartScatterThin } from 'react-icons/pi';
-import { GrUserAdmin } from 'react-icons/gr';
+import './Sideber.css';
 
 const menuItems = [
     { label: 'Dashboard', path: '/', icon: <img src={dashboard} width={22} height={22} alt="dashboard" /> },
-    // { label: 'Visitor', path: '/visitor', icon: <img src={visitor} alt="visitor" width={28} height={28} /> },
-
     { label: 'Category', path: '/category', icon: <img src={category} alt="category" width={22} height={22} /> },
     { label: 'Business', path: '/business', icon: <PiChartScatterThin size={24} /> },
     { label: 'Blog', path: '/blog', icon: <BsBlockquoteLeft size={24} /> },
@@ -118,18 +114,14 @@ const Sidebar = () => {
                 </div>
 
                 {/* dublicate */}
-                <div className={isSettingOpen ? 'block' : 'hidden'}>
+                <div className={isSettingOpen ? 'block ' : 'hidden'}>
                     {settings.map((setting) => (
-                        <div key={setting.path}>
+                        <div key={setting.path} className="ml-4">
                             {setting.children.map((child) => (
                                 <div
                                     key={`${setting.path}-${child.path}`}
                                     onClick={() => setActiveMenu(child.path)}
-                                    className={
-                                        activeMenu === child.path || currentPath === child.path
-                                            ? 'bg-[#188a50] rounded-r-full text-white w-[90%]'
-                                            : ''
-                                    }
+                                    className={activeMenu === child.path || currentPath === child.path ? '' : 'my-1'}
                                 >
                                     <Link to={child.path} className="flex items-center gap-4 p-6 py-2">
                                         <span>{child.icon}</span>
@@ -139,22 +131,6 @@ const Sidebar = () => {
                             ))}
                         </div>
                     ))}
-                </div>
-
-                <div
-                    onClick={() => setActiveMenu('/manage-admin')}
-                    className={
-                        activeMenu === '/manage-admin' || currentPath === '/manage-admin'
-                            ? 'bg-[#188a50] rounded-r-full text-white w-[90%]'
-                            : ''
-                    }
-                >
-                    <Link to={'/manage-admin'} className={`flex items-center gap-4  p-6 py-2`}>
-                        <span>
-                            <GrUserAdmin className="font-bold" size={23} />
-                        </span>
-                        <span>Manage Admin</span>
-                    </Link>
                 </div>
 
                 <div

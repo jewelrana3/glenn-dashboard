@@ -1,10 +1,6 @@
 import React from 'react';
-
 import { Outlet } from 'react-router-dom';
-// import HeaderDashboard from './HeaderDashboard';
-
 import HeaderDashboard from './HeaderDashboard';
-import SiderbarDublicate from './SiderbarDublicate';
 import Sideber from './Sideber';
 
 const MainLayout: React.FC = () => {
@@ -12,7 +8,6 @@ const MainLayout: React.FC = () => {
         <div className="grid grid-cols-12 ">
             {/* side bar */}
             <div className="col-span-2 bg-[#FFF7EC] h-screen">
-                {/* <SiderbarDublicate /> */}
                 <Sideber />
             </div>
 
