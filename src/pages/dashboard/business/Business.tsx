@@ -4,6 +4,7 @@ import {
     useUpdateBusinessMutation,
 } from '../../../redux/apiSlices/business-list/businessSlice';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 export default function Business() {
     const [input, setInput] = useState('');
@@ -21,7 +22,7 @@ export default function Business() {
         try {
             await updateBusiness({ _id: record._id, data });
         } catch (err) {
-            console.error('Error updating business');
+            toast.error('Error updating business');
         }
     };
 

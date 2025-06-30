@@ -4,6 +4,7 @@ import forgots from '../../../public/auth/forgot.svg';
 import Button from '../../components/shared/Button';
 import { useForgetPasswordMutation } from '../../redux/apiSlices/authSlice';
 import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
 
 const ForgetPassword = () => {
     const [forgetPassword] = useForgetPasswordMutation();
@@ -40,7 +41,7 @@ const ForgetPassword = () => {
                 });
             }
         } catch (err) {
-            console.error('Error occurred during forget password:', err);
+            toast.error('Error occurred during forget password.');
             Swal.fire({
                 title: 'Error',
                 text: 'Something went wrong. Please try again later.',

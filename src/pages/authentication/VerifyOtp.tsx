@@ -5,6 +5,7 @@ import otp from '../../../public/auth/otp.svg';
 import Button from '../../components/shared/Button';
 import { useOtpVerifyMutation, useResendCodeMutation } from '../../redux/apiSlices/authSlice';
 import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
 
 const VerifyOtp = () => {
     const [otpVerify] = useOtpVerifyMutation();
@@ -40,7 +41,7 @@ const VerifyOtp = () => {
                 });
             }
         } catch (error) {
-            console.error('Error during password reset request:', error);
+            toast.error('Error during password reset request.');
             Swal.fire({
                 title: 'Error',
                 text: 'Something went wrong while trying to resend the code. Please try again later.',
