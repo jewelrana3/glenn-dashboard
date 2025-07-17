@@ -2,6 +2,8 @@
 
 A minimal setup for building React apps with Vite, TypeScript, HMR, and ESLint.
 
+Project Name ---- Glenn Dashboard
+
 ## 🔌 Plugins
 
 Choose one of the official React plugins for Fast Refresh:
